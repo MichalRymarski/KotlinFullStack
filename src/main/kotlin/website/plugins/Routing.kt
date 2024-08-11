@@ -80,7 +80,7 @@ fun FlowContent.dashboard() = div {
                         attributes[HX_GET] = "https://rickandmortyapi.com/api/character/$i"
                         attributes[HX_TRIGGER] = "load"
                         attributes[HX_SWAP] = "none"
-                        img {
+                        img (alt = "Character Image"){
                             id = "characterImage$i"
                             classes = classes(
                                 marginX("auto"),
