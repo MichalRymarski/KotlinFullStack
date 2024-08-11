@@ -1,5 +1,6 @@
 package website
 
+import configureRouting
 import website.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
