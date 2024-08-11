@@ -472,7 +472,7 @@ const val TEXT_DARK = "text-dark"
  * Represents a utility class to add a border on all sides of an element.
  * Use this to apply a default border to all sides of an element.
  */
-const val BORDER = "border"
+const val B_BORDER = "border"
 
 /**
  * Represents a utility class to add a border to the top of an element.

@@ -69,26 +69,42 @@ fun FlowContent.dashboard() = div {
             onInput = "fetchData(this.value)"
         }
 
-        div{
+        div {
             classes = classes(CONTAINER)
             div {
                 classes = classes(ROW)
+                val transition = Transition.Builder()
+                    .applyTransitionType(TransitionType.TRANSFORM)
+                    .applyDuration("500")
+                    .applyEase(TransitionEase.EASE_IN_OUT)
+                    .applyEffect(hover1 { translateY("1") })
+                    .applyEffect(hover1 { scale("110") })
+                    .build()
+
+                println(transition)
                 for (i in 1..50) {
                     div {
+
                         classes = classes(COLUMN_3)
                         id = "characterDiv$i"
                         attributes[HX_GET] = "https://rickandmortyapi.com/api/character/$i"
                         attributes[HX_TRIGGER] = "load"
                         attributes[HX_SWAP] = "none"
-                        img (alt = "Character Image"){
+
+
+                        img(alt = "Character Image") {
+
+
                             id = "characterImage$i"
                             classes = classes(
                                 marginX("auto"),
                                 marginY("3"),
                                 display(Display.BLOCK),
-                                ROUNDED
+                                ROUNDED,
+                                transition
                             )
                         }
+
                     }
                 }
             }
