@@ -13,6 +13,8 @@ const val tailwind = "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailw
 const val HTMX = "https://unpkg.com/htmx.org"
 const val boootstrap = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 
+
+
 fun Application.configureRouting() {
     routing {
         staticResources("/static", "static")
@@ -69,43 +71,45 @@ fun FlowContent.dashboard() = div {
             onInput = "fetchData(this.value)"
         }
 
+        charactersGrid()
+    }
+}
+
+private fun MAIN.charactersGrid() {
+    div {
+        classes = classes(CONTAINER)
         div {
-            classes = classes(CONTAINER)
-            div {
-                classes = classes(ROW)
-                val transition = Transition.Builder()
-                    .applyTransitionType(TransitionType.TRANSFORM)
-                    .applyDuration("500")
-                    .applyEase(TransitionEase.EASE_IN_OUT)
-                    .applyEffect(hover1 { translateY("1") })
-                    .applyEffect(hover1 { scale("110") })
-                    .build()
+            classes = classes(ROW)
+            val transition = Transition.Builder()
+                .applyTransitionType(TransitionType.TRANSFORM)
+                .applyDuration("500")
+                .applyEase(TransitionEase.EASE_IN_OUT)
+                .applyEffect(hover1 { translateY("1") })
+                .applyEffect(hover1 { scale("110") })
+                .build()
 
-                println(transition)
-                for (i in 1..50) {
-                    div {
+            println(transition)
+            for (i in 1..50) {
+                div {
 
-                        classes = classes(COLUMN_3)
-                        id = "characterDiv$i"
-                        attributes[HX_GET] = "https://rickandmortyapi.com/api/character/$i"
-                        attributes[HX_TRIGGER] = "load"
-                        attributes[HX_SWAP] = "none"
+                    classes = classes(COLUMN_3)
+                    id = "characterDiv$i"
+                    attributes[HX_GET] = "https://rickandmortyapi.com/api/character/$i"
+                    attributes[HX_TRIGGER] = "load"
+                    attributes[HX_SWAP] = "none"
 
-
-                        img(alt = "Character Image") {
-
-
-                            id = "characterImage$i"
-                            classes = classes(
-                                marginX("auto"),
-                                marginY("3"),
-                                display(Display.BLOCK),
-                                ROUNDED,
-                                transition
-                            )
-                        }
-
+                    img(alt = "Character Image") {
+                        src = "/static/loading.gif"
+                        id = "characterImage$i"
+                        classes = classes(
+                            marginX("auto"),
+                            marginY("3"),
+                            display(Display.BLOCK),
+                            ROUNDED,
+                            transition
+                        )
                     }
+
                 }
             }
         }
