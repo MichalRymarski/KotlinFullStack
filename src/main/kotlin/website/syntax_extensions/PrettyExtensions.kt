@@ -1,4 +1,4 @@
-package website
+package website.syntax_extensions
 
 import kotlinx.html.FlowContent
 

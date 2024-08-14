@@ -3,16 +3,13 @@ import io.ktor.server.application.*
 import io.ktor.server.html.*
 import io.ktor.server.http.content.*
 import io.ktor.server.routing.*
-import kotlinx.html.*
-import website.addContent
-import website.constants.*
-
-
-const val stylesheet = "stylesheet"
-const val tailwind = "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-const val HTMX = "https://unpkg.com/htmx.org"
-const val boootstrap = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-
+import kotlinx.html.body
+import kotlinx.html.script
+import website.components.dashboard
+import website.constants.Color
+import website.constants.backgroundColor
+import website.constants.classesToString
+import website.links.imports
 
 
 fun Application.configureRouting() {
@@ -21,13 +18,20 @@ fun Application.configureRouting() {
 
         get("/") {
             call.respondHtml(status = HttpStatusCode.OK) {
-                head {
-                    link(rel = stylesheet, href = tailwind, type = "text/css")
-                    link(rel = stylesheet, href = boootstrap, type = "text/css")
-                    script(src = HTMX) {}
-                }
-                body {
+                imports()
+
+                body(classes = classesToString(backgroundColor(Color.GRAY_700))) {
                     dashboard()
+                    script { src = "/static/test.js" }
+                }
+            }
+        }
+        get("/characters") {
+            call.respondHtml(status = HttpStatusCode.OK) {
+                imports()
+
+                body(classes = classesToString(backgroundColor(Color.GRAY_600))) {
+                    charactersGrid()
                     script { src = "/static/test.js" }
                 }
             }
@@ -35,83 +39,6 @@ fun Application.configureRouting() {
     }
 }
 
-fun FlowContent.dashboard() = div {
-    id = "content"
-    header {
-        classes = classes(backgroundColor(Color.WHITE), shadow())
-        div {
-            classes = classes(
-                margin("auto"),
-                maxWidth(MaxWidth.XL7),
-                paddingX("4"),
-                paddingY("6"),
-                smPadding("6"),
-                lgPadding("8")
-            )
-            h1 {
-                classes = classes(
-                    fontWeight(FontWeight.MEDIUM),
-                    fontSize(TextSize.XL3),
-                    tracking("light"),
-                    textColor(Color.GRAY_900)
-                )
-                addContent("Dashboard")
-            }
-        }
-    }
-    main {
-        classes = classes(margin("auto"), maxWidth(MaxWidth.XL7), paddingY("6"), smPadding("6"), lgPadding("8"))
-        input(
-            type = InputType.text,
-            formEncType = InputFormEncType.textPlain,
-            classes = classesToString(border("2"), borderColor(Color.GRAY_300), padding("2"))
-        ) {
-            id = "name"
-            placeholder = "Enter your name"
-            onInput = "fetchData(this.value)"
-        }
 
-        charactersGrid()
-    }
-}
 
-private fun MAIN.charactersGrid() {
-    div {
-        classes = classes(CONTAINER)
-        div {
-            classes = classes(ROW)
-            val transition = Transition.Builder()
-                .applyTransitionType(TransitionType.TRANSFORM)
-                .applyDuration("500")
-                .applyEase(TransitionEase.EASE_IN_OUT)
-                .applyEffect(hover1 { translateY("1") })
-                .applyEffect(hover1 { scale("110") })
-                .build()
 
-            println(transition)
-            for (i in 1..50) {
-                div {
-
-                    classes = classes(COLUMN_3)
-                    id = "characterDiv$i"
-                    attributes[HX_GET] = "https://rickandmortyapi.com/api/character/$i"
-                    attributes[HX_TRIGGER] = "load"
-                    attributes[HX_SWAP] = "none"
-
-                    img(alt = "Character Image") {
-                        src = "/static/loading.gif"
-                        id = "characterImage$i"
-                        classes = classes(
-                            marginX("auto"),
-                            marginY("3"),
-                            display(Display.BLOCK),
-                            ROUNDED,
-                            transition
-                        )
-                    }
-
-                }
-            }
-        }
-    }
-}

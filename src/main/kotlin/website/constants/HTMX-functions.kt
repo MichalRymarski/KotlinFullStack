@@ -326,3 +326,31 @@ const val HX_FOCUS = "hx-focus"
  * Specifies that the request should be made even if the values haven't changed.
  */
 const val HX_IGNORE_UNCHANGED = "hx-ignore-unchanged"
+
+
+
+object HxSwap {
+    const val NONE = "none"
+    const val OUTER_HTML = "outer-html"
+    const val INNER_HTML = "inner-html"
+    const val BEFORE_BEGIN = "before-begin"
+    const val AFTER_BEGIN = "after-begin"
+    const val BEFORE_END = "before-end"
+    const val AFTER_END = "after-end"
+}
+
+object HxTrigger {
+    const val CLICK = "click"
+    const val HOVER = "hover"
+    const val FOCUS = "focus"
+    const val BLUR = "blur"
+    const val LOAD = "load"
+    const val CHANGED = "changed"
+    const val REVEALED = "revealed"
+    const val SETTLE = "settle"
+}
+
+object HxBoost{
+    const val TRUE = "true"
+    const val FALSE = "false"
+}
