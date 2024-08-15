@@ -2,12 +2,22 @@ package website.components
 
 import kotlinx.html.*
 import website.constants.*
+import website.links.API_LINK
 import website.syntax_extensions.addContent
 
 fun FlowContent.dashboard() = div {
-    id = "content"
+    val transition = Transition.Builder()
+        .applyTransitionType(TransitionType.TRANSFORM)
+        .applyDuration("500")
+        .applyEase(TransitionEase.EASE_IN_OUT)
+        .applyEffect(hover1 { scale("110") })
+        .build()
+    onClick = "navigateTo('$API_LINK/characters')"
+    id = "dashboard"
+    attributes[HX_GET] = "$API_LINK/characters"
+    attributes[HX_TRIGGER] = HxTrigger.CLICK
     header {
-        classes = classes(backgroundColor(Color.WHITE), shadow())
+        classes = classes(backgroundColor(Color.YELLOW_200), shadow("md"), cursor(CursorStyle.POINTER))
         div {
             classes = classes(
                 margin("auto"),

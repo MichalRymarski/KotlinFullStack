@@ -161,7 +161,7 @@ fun transition(value: String): String = "transition-$value"
  * @param value The cursor style (e.g., "pointer", "not-allowed", "wait").
  * @return A Tailwind CSS class string for cursor style.
  */
-fun cursor(value: String): String = "cursor-$value"
+fun cursor(value: CursorStyle): String = "cursor-$value"
 
 /**
  * Generates a Tailwind CSS class for applying overflow behavior to an element.
