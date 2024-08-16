@@ -17,13 +17,8 @@ const val Popper = "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/
 
 fun HTML.imports() {
     head {
-        link(rel = stylesheet, href = Tailwind, type = "text/css")
-        link(rel = stylesheet, href = BootstrapCSS, type = "text/css")
         link(rel = stylesheet, href = styling, type = "text/css")
-
-        script { src = Popper }
-        script { src = BootstrapJS }
-
+        link(rel = stylesheet, href = Tailwind, type = "text/css")
 
         script(src = HTMX) {}
     }

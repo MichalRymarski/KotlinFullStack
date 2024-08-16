@@ -1,57 +1,56 @@
 package website.front.components
 
 import kotlinx.html.*
-import website.front.attributes.*
 import website.front.links.API_LINK
 import website.syntax_extensions.addContent
+import website.syntax_extensions.classes
+import website.syntax_extensions.classesToString
 
 fun FlowContent.dashboard() = div {
 
     header {
-        classes = classes(backgroundColor(Color.YELLOW_200), shadow("md"))
+        classes = classes("bg-yellow-200", "shadow-md")
         div {
             classes = classes(
-                margin("auto"),
-                maxWidth(MaxWidth.XL7),
-                paddingX("4"),
-                paddingY("6"),
-                smPadding("6"),
-                lgPadding("8")
+                "mx-auto",
+                "max-w-7xl",
+                "px-4",
+                "py-6",
+                "sm:px-6",
+                "lg:px-8"
             )
             div  {
                 classes = classes(
-                    fontWeight(FontWeight.MEDIUM),
-                    fontSize(TextSize.XL3),
-                    tracking("light"),
-                    textColor(Color.GRAY_900),
+                    "font-medium",
+                    "text-3xl",
+                    "tracking-light",
+                    "text-gray-900",
                 )
                 a{
                     href = "$API_LINK/characters"
                     id = "dashboard"
-                    classes = classes(cursor(CursorStyle.POINTER), textColor(Color.WHITE))
+                    classes = classes("cursor-pointer", "text-white")
                     addContent("Dashboard")
                 }
             }
         }
     }
     main {
-        classes = classes(margin("auto"), maxWidth(MaxWidth.XL7), paddingY("6"), smPadding("6"), lgPadding("8"))
+        classes = classes("mx-auto", "max-w-7xl", "py-6", "sm:py-6", "lg:py-8")
         input(
             type = InputType.text,
             formEncType = InputFormEncType.textPlain,
-            classes = classesToString(border("2"), borderColor(Color.GRAY_300), padding("2"))
+            classes = classesToString("border-2", "border-gray-300", "p-2")
         ) {
             id = "name"
             placeholder = "Enter your name"
             onInput = "fetchData(this.value)"
         }
-
-        button(classes = classesToString("btn btn-primary")) {
+        br {  }
+        button(classes = classesToString("btn btn-primary","p-4","d-flex", "justify-content-center")) {
             id = "button"
             type = ButtonType.submit
             addContent("Submit")
         }
-
     }
 }
-

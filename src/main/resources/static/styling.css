@@ -9,12 +9,13 @@
 
 
 
-#dashboard{
+#dashboard {
     cursor: pointer;
     color: white;
+    text-decoration: none;
 }
 
-#dashboard:hover{
+#dashboard:hover {
     color: inherit;
     text-decoration: none;
 }

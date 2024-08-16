@@ -1,6 +1,5 @@
-
 import kotlinx.html.*
-import website.front.attributes.*
+import website.syntax_extensions.classes
 
 private fun DIV.RoundedCharacterImage(index: Int, transition: String) {
     val url = "https://rickandmortyapi.com/api/character/$index"
@@ -13,10 +12,8 @@ private fun DIV.RoundedCharacterImage(index: Int, transition: String) {
         src = "/static/loading.gif"
         id = characterID
         classes = classes(
-            marginX("auto"),
-            marginY("3"),
-            display(Display.BLOCK),
-            ROUNDED_CIRCLE,
+            "block",
+            "rounded-lg",
             transition
         )
     }
@@ -24,22 +21,20 @@ private fun DIV.RoundedCharacterImage(index: Int, transition: String) {
 
 
 fun FlowContent.charactersGrid() = div {
-    classes = classes(CONTAINER)
-    div {
-        classes = classes(ROW)
-        val transition = Transition.Builder()
-            .applyTransitionType(TransitionType.TRANSFORM)
-            .applyDuration("500")
-            .applyEase(TransitionEase.EASE_IN_OUT)
-            .applyEffect(hover1 { scale("110") })
-            .build()
+    classes = classes(
+        "grid",
+        "grid-cols-4",
+        "gap-8",
+        "justify-center",
+        "justify-items-center",
+        "content-center",
+        "py-6"
+    )
 
-        (1..200).forEach { index ->
-            div {
-                classes = classes(COLUMN_2)
-                RoundedCharacterImage(index, transition)
-            }
-        }
+    val transition = "transition duration-500 ease-in-out transform hover:scale-110"
+
+    (1..200).forEach { index ->
+        RoundedCharacterImage(index, transition)
     }
 }
 
