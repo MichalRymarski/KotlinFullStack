@@ -12,12 +12,9 @@ fun FlowContent.dashboard() = div {
         .applyEase(TransitionEase.EASE_IN_OUT)
         .applyEffect(hover1 { scale("110") })
         .build()
-    onClick = "navigateTo('$API_LINK/characters')"
-    id = "dashboard"
-    attributes[HX_GET] = "$API_LINK/characters"
-    attributes[HX_TRIGGER] = HxTrigger.CLICK
+
     header {
-        classes = classes(backgroundColor(Color.YELLOW_200), shadow("md"), cursor(CursorStyle.POINTER))
+        classes = classes(backgroundColor(Color.YELLOW_200), shadow("md"))
         div {
             classes = classes(
                 margin("auto"),
@@ -27,14 +24,19 @@ fun FlowContent.dashboard() = div {
                 smPadding("6"),
                 lgPadding("8")
             )
-            h1 {
+            div {
                 classes = classes(
                     fontWeight(FontWeight.MEDIUM),
                     fontSize(TextSize.XL3),
                     tracking("light"),
-                    textColor(Color.GRAY_900)
+                    textColor(Color.GRAY_900),
                 )
-                addContent("Dashboard")
+                span {
+                    onClick = "navigateTo('$API_LINK/characters')"
+                    id = "dashboard"
+                    classes = classes(cursor(CursorStyle.POINTER),transition)
+                    addContent("Dashboard")
+                }
             }
         }
     }
