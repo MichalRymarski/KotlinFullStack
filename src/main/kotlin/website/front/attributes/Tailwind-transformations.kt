@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package website.constants
+package website.front.attributes
 
 class Transition private constructor(
     private val type: TransitionType,

@@ -6,7 +6,7 @@
  */
 @file:Suppress("unused")
 
-package website.constants
+package website.front.attributes
 
 // Bootstrap Grid System
 /**

@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package website.constants
+package website.front.attributes
 
 /**
  * Specifies the URL to issue a GET request to.

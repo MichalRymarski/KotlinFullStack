@@ -1,4 +1,4 @@
-package website.dto
+package website.front.dto
 
 import kotlinx.serialization.Serializable
 

@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package website.constants
+package website.front.attributes
 
 enum class MaxWidth(private val value: String) {
     NONE("none"),
@@ -258,7 +258,7 @@ enum class Color(private val value: String) {
     fun textColor() = "text-$value"
     fun backgroundColor() = "bg-$value"
     fun borderColor() = "border-$value"
-
+    fun color() = "color-$value"
 }
 
 

@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package website.constants
+package website.front.attributes
 
 /**
  * Creates a Set of CSS classes from the given string values.

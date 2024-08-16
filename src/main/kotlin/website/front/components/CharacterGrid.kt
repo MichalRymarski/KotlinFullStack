@@ -1,6 +1,6 @@
 
 import kotlinx.html.*
-import website.constants.*
+import website.front.attributes.*
 
 private fun DIV.RoundedCharacterImage(index: Int, transition: String) {
     val url = "https://rickandmortyapi.com/api/character/$index"

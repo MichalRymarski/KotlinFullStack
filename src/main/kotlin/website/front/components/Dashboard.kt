@@ -1,17 +1,11 @@
-package website.components
+package website.front.components
 
 import kotlinx.html.*
-import website.constants.*
-import website.links.API_LINK
+import website.front.attributes.*
+import website.front.links.API_LINK
 import website.syntax_extensions.addContent
 
 fun FlowContent.dashboard() = div {
-    val transition = Transition.Builder()
-        .applyTransitionType(TransitionType.TRANSFORM)
-        .applyDuration("500")
-        .applyEase(TransitionEase.EASE_IN_OUT)
-        .applyEffect(hover1 { scale("110") })
-        .build()
 
     header {
         classes = classes(backgroundColor(Color.YELLOW_200), shadow("md"))
@@ -24,17 +18,17 @@ fun FlowContent.dashboard() = div {
                 smPadding("6"),
                 lgPadding("8")
             )
-            div {
+            div  {
                 classes = classes(
                     fontWeight(FontWeight.MEDIUM),
                     fontSize(TextSize.XL3),
                     tracking("light"),
                     textColor(Color.GRAY_900),
                 )
-                span {
-                    onClick = "navigateTo('$API_LINK/characters')"
+                a{
+                    href = "$API_LINK/characters"
                     id = "dashboard"
-                    classes = classes(cursor(CursorStyle.POINTER),transition)
+                    classes = classes(cursor(CursorStyle.POINTER), textColor(Color.WHITE))
                     addContent("Dashboard")
                 }
             }
@@ -50,6 +44,12 @@ fun FlowContent.dashboard() = div {
             id = "name"
             placeholder = "Enter your name"
             onInput = "fetchData(this.value)"
+        }
+
+        button(classes = classesToString("btn btn-primary")) {
+            id = "button"
+            type = ButtonType.submit
+            addContent("Submit")
         }
 
     }

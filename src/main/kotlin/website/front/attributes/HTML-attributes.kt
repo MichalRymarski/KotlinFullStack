@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package website.constants
+package website.front.attributes
 
 /**
  * ALT: Specifies an alternative text for an image, if the image cannot be displayed.

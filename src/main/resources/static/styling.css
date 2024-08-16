@@ -6,3 +6,15 @@
     transition: all 0.8s ease;
     transform: scale(1);
 }
+
+
+
+#dashboard{
+    cursor: pointer;
+    color: white;
+}
+
+#dashboard:hover{
+    color: inherit;
+    text-decoration: none;
+}
