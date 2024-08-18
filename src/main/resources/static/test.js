@@ -25,3 +25,12 @@ function addTransitionEffect(id) {
         element.classList.remove("transition-effect");
     });
 }
+
+function toggleCheckbox(id,event) {
+    let element = document.getElementById(id);
+    if (event.target !== element) {
+        element.checked = !element.checked;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+}

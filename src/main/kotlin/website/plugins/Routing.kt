@@ -8,6 +8,8 @@ import kotlinx.html.body
 import kotlinx.html.h1
 import website.front.controllers.CharactersController
 import website.front.controllers.HomeController
+import website.front.controllers.LoginController
+import website.front.controllers.RegistrationController
 
 
 fun Application.configureRouting() {
@@ -22,10 +24,10 @@ fun Application.configureRouting() {
                     h1 { +"Hello, World!" }
                 }
             }
-
         }
 
-
+        RegistrationController()
+        LoginController()
         HomeController()
         CharactersController()
     }

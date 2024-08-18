@@ -8,7 +8,7 @@ import io.ktor.server.routing.*
 import kotlinx.html.body
 import kotlinx.html.script
 import website.front.links.imports
-import website.syntax_extensions.classesToString
+import website.syntax_extensions.classes
 
 
 fun Routing.CharactersController() {
@@ -16,7 +16,7 @@ fun Routing.CharactersController() {
         call.respondHtml(status = HttpStatusCode.OK) {
             imports()
 
-            body(classes = classesToString("bg-gray-700")) {
+            body(classes = classes("bg-gray-700")) {
                 charactersGrid()
                 script { src = "/static/test.js" }
             }
