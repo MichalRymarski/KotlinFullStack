@@ -9,7 +9,7 @@ const val stylesheet = "stylesheet"
 const val styling = "/static/styling.css"
 const val Tailwind = "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
 const val HTMX = "https://unpkg.com/htmx.org"
-const val API_LINK = "http://127.0.0.1:8081"
+const val API_LINK = "http://127.0.0.1:8080"
 
 
 

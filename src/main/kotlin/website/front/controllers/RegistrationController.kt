@@ -16,6 +16,7 @@ import website.syntax_extensions.classes
 fun Routing.RegistrationController() {
     get("/register") {
         call.respondHtml(status = HttpStatusCode.OK) {
+            id = "home"
             imports()
 
             body(

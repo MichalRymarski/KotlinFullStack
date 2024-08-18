@@ -19,7 +19,7 @@ function navigateTo(link) {
 }
 
 function addTransitionEffect(id) {
-    var element = document.getElementById(id);
+    let element = document.getElementById(id);
     element.classList.add("transition-effect");
     element.addEventListener('transitionend', function() {
         element.classList.remove("transition-effect");
@@ -33,4 +33,15 @@ function toggleCheckbox(id,event) {
     }
     event.preventDefault();
     event.stopPropagation();
+}
+
+function toggleDropdown() {
+    let dropdownContent = document.getElementById("dropdownContent");
+    let dropdownIcon = document.getElementById("dropdownIcon");
+    dropdownContent.classList.toggle("hidden");
+    if (dropdownIcon.textContent === "▼") {
+        dropdownIcon.textContent = "▲";
+    } else {
+        dropdownIcon.textContent = "▼";
+    }
 }

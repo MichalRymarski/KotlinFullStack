@@ -16,6 +16,7 @@ import website.syntax_extensions.classes
 fun Routing.LoginController() {
     get("/login") {
         call.respondHtml(status = HttpStatusCode.OK) {
+            id = "home"
             imports()
 
             body(classes = classes(
