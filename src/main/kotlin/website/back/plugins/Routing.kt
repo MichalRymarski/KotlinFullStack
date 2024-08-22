@@ -1,3 +1,5 @@
+package website.back.plugins
+
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
@@ -6,10 +8,10 @@ import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import kotlinx.html.body
 import kotlinx.html.h1
-import website.front.controllers.CharactersController
-import website.front.controllers.HomeController
-import website.front.controllers.LoginController
-import website.front.controllers.RegistrationController
+import website.back.controllers.CharactersController
+import website.back.controllers.HomeController
+import website.back.controllers.LoginController
+import website.back.controllers.RegistrationController
 
 
 fun Application.configureRouting() {

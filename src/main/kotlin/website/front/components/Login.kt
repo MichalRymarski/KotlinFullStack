@@ -1,6 +1,7 @@
 package website.front.components
 
 import kotlinx.html.*
+import website.front.links.API_LINK
 import website.syntax_extensions.addContent
 import website.syntax_extensions.classes
 
@@ -56,6 +57,10 @@ fun FlowContent.login() {
                 a(href = "#", classes = classes("text-sm", "text-blue-600", "hover:underline")) {
                     addContent("Forgot your password?")
                 }
+            }
+
+            a(href = "$API_LINK/register", classes = classes("text-sm", "text-blue-600", "hover:underline")) {
+                addContent("Not registered? Register here!")
             }
         }
     }

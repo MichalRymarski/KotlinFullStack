@@ -85,44 +85,22 @@ fun DIV.RegisterButton(classes: String) {
 fun DIV.dropdownMenu(classes: String, vararg items: DIV.() -> Unit) {
     div(classes = classes) {
         div(classes = classes("relative", "inline-block")) {
+            attributes["x-data"] = "{ isOpen: false }"
             button(
-                classes = classes(
-                    "bg-blue-500",
-                    "text-white",
-                    "font-bold",
-                    "py-2",
-                    "rounded",
-                    "w-48",
-                    "inline-flex",
-                    "items-center",
-                    "justify-center",
-                )
+                classes = classes("bg-blue-500", "text-white", "font-bold", "py-2", "w-48", "inline-flex", "items-center", "justify-center")
             ) {
-                onClick = "toggleDropdown()"
+                attributes["x-on:click"] = "isOpen = !isOpen"
                 addContent("Settings")
                 span(classes = classes("ml-1")) {
                     id = "dropdownIcon"
-                    addContent("▼")
+                    attributes["x-text"] = "isOpen ? '▲' : '▼'"
                 }
             }
             div(
-                classes = classes(
-                    "hidden",
-                    "absolute",
-                    "bg-white",
-                    "text-gray-700",
-                    "mt-2",
-                    "py-2",
-                    "w-48", // Increased width
-                    "shadow-lg",
-                    "z-10",
-                    "center",
-                    "rounded-md", // Rounded corners
-                    "border", // Add a border
-                    "border-gray-200"
-                )
+                classes = classes( "absolute", "bg-white", "text-gray-700", "mt-2", "py-2", "w-48", "shadow-lg", "z-10", "center", "rounded-md", "border", "border-gray-200")
             ) {
-                onClick = "toggleDropdown()"
+                attributes["x-on:click"] = "isOpen = !isOpen"
+                attributes["x-show"] = "isOpen"
                 id = "dropdownContent"
                 items.forEachIndexed { index, item ->
                     div(classes = classes(
@@ -140,4 +118,70 @@ fun DIV.dropdownMenu(classes: String, vararg items: DIV.() -> Unit) {
         }
     }
 }
+fun FlowContent.codeBlock(language: String, code: String) {
+    pre(classes = classes(
+        "bg-gray-800",
+        "rounded-md",
+        "p-4",
+        "overflow-x-auto",
+        "text-sm",
+        "text-white"
+    )) {
+        code(classes = classes("language-$language")) {
+            +code
+        }
+    }
+}
+
+fun DIV.ToggleSwitch(id: String, label: String, classes : String? = null) {
+    div(classes = classes("flex", "items-center",classes.toString())) {
+        attributes["x-data"] = "{ isOn: false }"
+
+        label(classes = classes("flex", "items-center", "cursor-pointer")) {
+            input(type = InputType.checkBox, classes = classes("hidden")) {
+                this.id = id
+                attributes["x-model"] = "isOn"
+            }
+            label(classes = classes("ml-2", "text-gray-700")) {
+                addContent(label)
+            }
+
+            div(classes = classes(
+                "w-10", "h-6", "rounded-full", "shadow-inner",
+                "transition-colors", "duration-300", "ease-in-out",
+                "flex", "items-center"
+            )) {
+                attributes["x-bind:class"] = "isOn ? 'bg-blue-500' : 'bg-gray-400'"
+
+                div(classes = classes(
+                    "w-4", "h-4", "bg-white", "rounded-full", "shadow",
+                    "transition-transform", "duration-300", "ease-in-out"
+                )) {
+                    attributes["x-bind:class"] = "isOn ? 'transform translate-x-5' : 'transform translate-x-0.5'"
+                }
+            }
+        }
+    }
+}
+
+fun DIV.Header() {
+    header(classes = classes( "shadow-md", "bg-gray-800")) {
+        div(classes = classes("mx-auto", "max-w-7xl", "px-4", "py-6", "sm:px-6", "lg:px-8")) {
+            div(
+                classes = classes("font-medium", "text-3xl", "tracking-light", "text-gray-900")
+            ) {
+                a(classes = classes("cursor-pointer", "text-white")) {
+                    href = "$API_LINK/"
+                    id = "dashboard"
+                    addContent("Dashboard")
+                }
+            }
+
+        }
+    }
+}
+
+
+
+
 

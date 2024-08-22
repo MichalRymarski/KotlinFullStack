@@ -8,7 +8,7 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
-import website.front.dto.Character
+import website.back.dto.Character
 
 const val API_CHARACTER_URL = "https://rickandmortyapi.com/api/character/"
 

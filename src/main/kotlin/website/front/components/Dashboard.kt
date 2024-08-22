@@ -1,53 +1,75 @@
 package website.front.components
 
 import kotlinx.html.*
-import website.front.links.API_LINK
 import website.syntax_extensions.addContent
 import website.syntax_extensions.classes
 
 fun FlowContent.dashboard() = div(classes = classes("relative")) {
 
-    header(classes = classes("bg-yellow-200", "shadow-md")) {
-        div(classes = classes("mx-auto", "max-w-7xl", "px-4", "py-6", "sm:px-6", "lg:px-8")) {
-            div(
-                classes = classes("font-medium", "text-3xl", "tracking-light", "text-gray-900")
-            ) {
-                a(classes = classes("cursor-pointer", "text-white")) {
-                    href = "$API_LINK/characters"
-                    id = "dashboard"
-                    addContent("Dashboard")
+    Header()
+
+
+    main(
+        classes("mx-auto", "sm:py-6", "lg:py-8", "min-h-screen", "w-full", "relative", "flex justify-center", "text-center")
+    ) {
+        attributes["x-data"] = "{ open: false }"
+
+        div(
+            classes("absolute top-0 left-0", "w-48 min-h-screen", "bg-gray-800", "transition-all duration-300")
+        ) {
+            attributes["x-show"] = "open"
+            attributes["x-transition:enter"] = "transform translate-x-0 opacity-100"
+            attributes["x-transition:enter-start"] = "transform -translate-x-full opacity-0"
+            attributes["x-transition:leave-end"] = "transform -translate-x-full opacity-0"
+
+            div(classes("border-t border-gray-500", "absolute", "top-0", "left-0", "w-full"))  //divider
+            button(classes = classes("w-full h-12", "block")) {
+                attributes["x-on:click"] = "open = !open"
+                i(classes("fas fa-chevron-left"))
+            }
+            for (i in 0..5) {
+                div(classes("border-t border-gray-500", "w-full"))  //divider
+                div(classes("my-4")) {
+                    addContent("Bazinga")
                 }
             }
-
         }
-    }
+        div(
+            classes(
+                "absolute top-0 -left-8",
+                "w-12 h-12",
+                "bg-gray-800",
+                "transition-all",
+                "duration-300",
+                "-z-10",
+                "transition duration-300 ease-in-out transform hover:translate-x-8"
+            )
+        ) {
+            attributes["x-show"] = "!open"
+            attributes["x-transition:enter"] = "opacity-100"
+            attributes["x-transition:enter-start"] = "opacity-0"
+            attributes["x-transition:leave-end"] = "opacity-0"
 
-    main(classes = classes("mx-auto", "max-w-7xl", "py-6", "sm:py-6", "lg:py-8", "h-48")) {
-        id = "main-content"
+            div(classes("border-t border-gray-500", "w-full"))  //divider
+            button(classes = classes(" w-full h-full ", "flex justify-end items-center")) {
+                attributes["x-on:click"] = "open = !open"
+                for (i in 1..4)
+                    i(classes("fas fa-chevron-right"))
+            }
+        }
 
-        audio {
-            controls = true
-            src = "/static/bazinga.mp3"
-        }
-        iframe(classes = classes("w-96", "mx-auto", "h-96")) {
-            src = "https://www.youtube.com/embed/r0lDBzKCGAM"
-            attributes["frameborder"] = "0"
-            attributes["allow"] =
-                "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            attributes["allowfullscreen"] = "true"
-        }
     }
 
 
     val dropdownItemStyling = classes(
         "w-full",
-        "text-gray-700", // Changed text color
+        "text-gray-700",
         "p-2",
         "rounded-sm",
         "transition",
         "duration-200",
-        "hover:bg-blue-100", // Lighter hover effect
-        "hover:text-blue-700" // Text color change on hover
+        "hover:bg-blue-100",
+        "hover:text-blue-700"
     )
 
     dropdownMenu(
@@ -59,15 +81,14 @@ fun FlowContent.dashboard() = div(classes = classes("relative")) {
             RegisterButton(classes = dropdownItemStyling)
         },
         {
-            RegisterButton(classes = dropdownItemStyling)
-        },
-        {
-            RegisterButton(classes = dropdownItemStyling)
-        },
+            ToggleSwitch("dark-mode", "Dark Mode", classes = dropdownItemStyling)
+        }
     )
 
 
 }
+
+
 
 
 

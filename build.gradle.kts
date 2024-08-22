@@ -12,9 +12,9 @@ group = "HtmxTailwindWithKotlin"
 version = "0.0.1"
 
 application {
-    mainClass.set("HtmxTailwindWithKotlin.ApplicationKt")
+    mainClass.set("website.ApplicationKt")
 
-    val isDevelopment: Boolean = project.ext.has("development")
+    val isDevelopment: Boolean = true
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 

@@ -1,4 +1,4 @@
-package website.front.controllers
+package website.back.controllers
 
 import io.ktor.http.*
 import io.ktor.server.application.*
