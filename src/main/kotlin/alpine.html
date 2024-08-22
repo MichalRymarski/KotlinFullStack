@@ -1,0 +1,224 @@
+
+<html>
+<head>
+    <title>Alpine.js Directives</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+        }
+        .directive {
+            margin: 1em 0;
+            padding: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .directive h2 {
+            margin: 0 0 1em;
+        }
+        .directive pre {
+            margin: 0;
+            padding: 1em;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="directive">
+    <h2>x-data: Declares a new Alpine component scope.</h2>
+    <pre>&lt;div x-data="{ count: 0 }"&gt;
+  &lt;button x-on:click="count++"&gt;Increment&lt;/button&gt;
+  &lt;span x-text="count"&gt;&lt;/span&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-init: Runs when the component is initialized.</h2>
+    <pre>&lt;div x-data="{ message: 'Hello, world!' }" x-init="console.log(message)"&gt;
+  &lt;p x-text="message"&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-show: Toggles the visibility of an element.</h2>
+    <pre>&lt;div x-data="{ isVisible: false }"&gt;
+  &lt;button x-on:click="isVisible = !isVisible"&gt;Toggle Visibility&lt;/button&gt;
+  &lt;p x-show="isVisible"&gt;This text will be shown or hidden based on the value of isVisible.&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-bind: Dynamically sets HTML attributes.</h2>
+    <pre>&lt;div x-data="{ isActive: true }"&gt;
+  &lt;div x-bind:class="{ 'active': isActive }"&gt;This div will have the 'active' class added when isActive is true.&lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-on: Attaches event listeners to elements.</h2>
+    <pre>&lt;div x-data="{ count: 0 }"&gt;
+  &lt;button x-on:click="count++"&gt;Increment&lt;/button&gt;
+  &lt;span x-text="count"&gt;&lt;/span&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-model: Creates two-way data bindings.</h2>
+    <pre>&lt;div x-data="{ name: 'John Doe' }"&gt;
+  &lt;input type="text" x-model="name" /&gt;
+  &lt;p&gt;Hello, &lt;span x-text="name"&gt;&lt;/span&gt;!&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-text: Updates the text content of an element.</h2>
+    <pre>&lt;div x-data="{ message: 'Hello, world!' }"&gt;
+  &lt;p x-text="message"&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-html: Updates the inner HTML of an element.</h2>
+    <pre>&lt;div x-data="{ content: '&lt;strong&gt;This is bold text.&lt;/strong&gt;' }"&gt;
+  &lt;div x-html="content"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-ref: References elements in your component.</h2>
+    <pre>&lt;div x-data&gt;
+  &lt;button x-ref="myButton"&gt;Click me&lt;/button&gt;
+  &lt;script&gt;
+    document.addEventListener('alpine:init', () =&gt; {
+      Alpine.data('component', () =&gt; ({
+        init() {
+          this.$refs.myButton.addEventListener('click', () =&gt; {
+            alert('Button clicked!');
+          });
+        }
+      }));
+    });
+  &lt;/script&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-if: Conditionally renders elements.</h2>
+    <pre>&lt;div x-data="{ showContent: false }"&gt;
+  &lt;button x-on:click="showContent = !showContent"&gt;Toggle Content&lt;/button&gt;
+  &lt;template x-if="showContent"&gt;
+    &lt;div&gt;This content will be shown or hidden based on the value of showContent.&lt;/div&gt;
+  &lt;/template&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-for: Iterates over arrays or objects.</h2>
+    <pre>&lt;div x-data="{ items: ['Apple', 'Banana', 'Cherry'] }"&gt;
+  &lt;ul&gt;
+    &lt;template x-for="item in items"&gt;
+      &lt;li x-text="item"&gt;&lt;/li&gt;
+    &lt;/template&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-transition: Applies transitions to elements.</h2>
+    <pre>&lt;div x-data="{ isVisible: false }"&gt;
+  &lt;button x-on:click="isVisible = !isVisible"&gt;Toggle Visibility&lt;/button&gt;
+  &lt;div x-show="isVisible" x-transition&gt;
+    This content will fade in and out when the button is clicked.
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-cloak: Hides elements until Alpine is fully loaded.</h2>
+    <pre>&lt;div x-data="{ message: 'Hello, world!' }" x-cloak&gt;
+  &lt;p x-text="message"&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-effect: Runs a callback when its dependencies change.</h2>
+    <pre>&lt;div x-data="{ count: 0 }"&gt;
+  &lt;button x-on:click="count++"&gt;Increment&lt;/button&gt;
+  &lt;div x-effect="console.log(`The count is ${count}`)"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-ignore: Ignores an element and its children for compilation.</h2>
+    <pre>&lt;div x-data="{ message: 'Hello, world!' }"&gt;
+  &lt;div x-ignore&gt;
+    &lt;p&gt;This content will be ignored by Alpine.&lt;/p&gt;
+    &lt;p x-text="message"&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-id: Generates unique IDs for elements.</h2>
+    <pre>&lt;div x-data&gt;
+  &lt;label :for="$id('my-input')"&gt;Enter your name:&lt;/label&gt;
+  &lt;input type="text" :id="$id('my-input')" /&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-teleport: Moves an element to a different part of the DOM.</h2>
+    <pre>&lt;div x-data="{ isModalOpen: false }"&gt;
+  &lt;button x-on:click="isModalOpen = true"&gt;Open Modal&lt;/button&gt;
+  &lt;template x-teleport="body"&gt;
+    &lt;div x-show="isModalOpen" class="modal"&gt;
+      &lt;div class="modal-content"&gt;
+        &lt;span class="close-button" x-on:click="isModalOpen = false"&gt;&times;&lt;/span&gt;
+        &lt;p&gt;This modal will be teleported to the body of the document.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/template&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-modelable: Creates custom two-way data binding.</h2>
+    <pre>&lt;div x-data="{ value: 'Initial value' }"&gt;
+  &lt;input type="text" x-modelable="value" /&gt;
+  &lt;p&gt;The value is: &lt;span x-text="value"&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-scroll: Adds scroll-based animations and interactions.</h2>
+    <pre>&lt;div x-data="{ scroll: 0 }" x-scroll="scroll = $event.target.scrollTop"&gt;
+  &lt;p x-text="`Scroll position: ${scroll}`"&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-scroll-snap: Enables snap scrolling.</h2>
+    <pre>&lt;div x-data="{ snap: 'start' }" x-scroll-snap="snap"&gt;
+  &lt;p&gt;Scroll here!&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-scroll-class: Applies a class based on scroll position.</h2>
+    <pre>&lt;div x-data="{ scrolled: false }" x-scroll="scrolled = ($event.target.scrollTop > 100)" x-scroll-class="scrolled: 'bg-white'"&gt;
+  &lt;p&gt;Scroll down more than 100px to see the background change!&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+
+<div class="directive">
+    <h2>x-scroll-progress: Tracks the scroll progress.</h2>
+    <pre>&lt;div x-data="{ progress: 0 }" x-scroll-progress="progress"&gt;
+  &lt;p x-text="`Scroll progress: ${progress}`"&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
+</div>
+</body>
+</html>

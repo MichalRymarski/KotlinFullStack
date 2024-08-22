@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tailwind CSS Cheatsheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+        }
+        .directive {
+            margin: 1em 0;
+            padding: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .directive h2 {
+            margin: 0 0 1em;
+        }
+        .directive pre {
+            margin: 0;
+            padding: 1em;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="directive">
+    <h2>Text Styles</h2>
+    <pre>
+&lt;p class="text-gray-500"&gt;Text with gray color&lt;/p&gt;
+&lt;p class="text-xl font-bold"&gt;Large bold text&lt;/p&gt;
+&lt;p class="italic underline"&gt;Italicized and underlined text&lt;/p&gt;
+&lt;p class="uppercase"&gt;UPPERCASE TEXT&lt;/p&gt;
+        </pre>
+</div>
+
+<div class="directive">
+    <h2>Background Colors</h2>
+    <pre>
+&lt;div class="bg-blue-500 p-4 rounded"&gt;Blue background&lt;/div&gt;
+&lt;div class="bg-red-500 p-4 rounded"&gt;Red background&lt;/div&gt;
+&lt;div class="bg-green-500 p-4 rounded"&gt;Green background&lt;/div&gt;
+&lt;div class="bg-gray-200 p-4 rounded"&gt;Gray background&lt;/div&gt;
+        </pre>
+</div>
+
+<div class="directive">
+    <h2>Spacing</h2>
+    <pre>
+&lt;div class="p-4"&gt;Padding 4 (1rem)&lt;/div&gt;
+&lt;div class="px-6 py-2"&gt;Horizontal padding 6, vertical padding 2&lt;/div&gt;
+&lt;div class="mt-8 mb-2"&gt;Margin top 8, margin bottom 2&lt;/div&gt;
+&lt;div class="mx-auto"&gt;Centered horizontally&lt;/div&gt;
+        </pre>
+</div>
+
+<div class="directive">
+    <h2>Sizing</h2>
+    <pre>
+&lt;div class="w-1/2 h-32"&gt;Half width, 8rem height&lt;/div&gt;
+&lt;div class="max-w-md"&gt;Maximum width of 28rem&lt;/div&gt;
+&lt;div class="min-h-screen"&gt;Minimum height of the viewport&lt;/div&gt;
+&lt;div class="flex-grow"&gt;Grow to fill available space&lt;/div&gt;
+        </pre>
+</div>
+
+<div class="directive">
+    <h2>Layout</h2>
+    <pre>
+&lt;div class="flex justify-between items-center"&gt;
+    &lt;p&gt;Horizontally spaced, vertically centered&lt;/p&gt;
+    &lt;button class="px-4 py-2 bg-blue-500 text-white rounded"&gt;Button&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-4"&gt;
+    &lt;div&gt;Grid item 1&lt;/div&gt;
+    &lt;div&gt;Grid item 2&lt;/div&gt;
+    &lt;div&gt;Grid item 3&lt;/div&gt;
+&lt;/div&gt;
+        </pre>
+</div>
+
+<div class="directive">
+    <h2>Borders</h2>
+    <pre>
+&lt;div class="border-2 border-gray-400 rounded-lg p-4"&gt;Rounded border&lt;/div&gt;
+&lt;div class="border-b-4 border-blue-500"&gt;Bottom border&lt;/div&gt;
+&lt;div class="hover:border-red-500 transition-colors duration-300"&gt;
+    Hover for red border
+&lt;/div&gt;
+        </pre>
+</div>
+
+<div class="directive">
+    <h2>Effects</h2>
+    <pre>
+&lt;button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded shadow hover:shadow-lg transition-all duration-300"&gt;
+    Hover for shadow
+&lt;/button&gt;
+&lt;div class="transform hover:scale-110 transition-transform duration-300"&gt;
+    Hover for scale
+&lt;/div&gt;
+&lt;div class="opacity-50 hover:opacity-100 transition-opacity duration-300"&gt;
+    Hover for opacity
+&lt;/div&gt;
+        </pre>
+</div>
+
+<div class="directive">
+    <h2>Responsive Design</h2>
+    <pre>
+&lt;div class="text-gray-500 sm:text-blue-500 md:text-red-500 lg:text-green-500"&gt;
+    Responsive text color
+&lt;/div&gt;
+&lt;div class="flex flex-col sm:flex-row justify-between"&gt;
+    &lt;p&gt;Responsive layout&lt;/p&gt;
+    &lt;button&gt;Button&lt;/button&gt;
+&lt;/div&gt;
+        </pre>
+</div>
+
+<div class="directive">
+    <h2>Utilities</h2>
+    <pre>
+&lt;button class="focus:outline-none active:bg-gray-200"&gt;
+    Focused and active styles
+&lt;/button&gt;
+&lt;div class="overflow-hidden"&gt;
+    Hides overflowing content
+&lt;/div&gt;
+&lt;div class="truncate"&gt;
+    Truncates long text
+&lt;/div&gt;
+        </pre>
+</div>
+
+
+<div class="directive">
+    <h2>Text Styles</h2>
+    <pre>
+&lt;p class="text-gray-500"&gt;Text with gray color&lt;/p&gt;
+&lt;p class="text-xl font-bold"&gt;Large bold text&lt;/p&gt;
+&lt;p class="italic underline"&gt;Italicized and underlined text&lt;/p&gt;
+&lt;p class="uppercase"&gt;UPPERCASE TEXT&lt;/p&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Background Colors</h2>
+    <pre>
+&lt;div class="bg-blue-500 p-4 rounded"&gt;Blue background&lt;/div&gt;
+&lt;div class="bg-red-500 p-4 rounded"&gt;Red background&lt;/div&gt;
+&lt;div class="bg-green-500 p-4 rounded"&gt;Green background&lt;/div&gt;
+&lt;div class="bg-gray-200 p-4 rounded"&gt;Gray background&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Spacing</h2>
+    <pre>
+&lt;div class="p-4"&gt;Padding 4 (1rem)&lt;/div&gt;
+&lt;div class="px-6 py-2"&gt;Horizontal padding 6, vertical padding 2&lt;/div&gt;
+&lt;div class="mt-8 mb-2"&gt;Margin top 8, margin bottom 2&lt;/div&gt;
+&lt;div class="mx-auto"&gt;Centered horizontally&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Sizing</h2>
+    <pre>
+&lt;div class="w-1/2 h-32"&gt;Half width, 8rem height&lt;/div&gt;
+&lt;div class="max-w-md"&gt;Maximum width of 28rem&lt;/div&gt;
+&lt;div class="min-h-screen"&gt;Minimum height of the viewport&lt;/div&gt;
+&lt;div class="flex-grow"&gt;Grow to fill available space&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Layout</h2>
+    <pre>
+&lt;div class="flex justify-between items-center"&gt;
+    &lt;p&gt;Horizontally spaced, vertically centered&lt;/p&gt;
+    &lt;button class="px-4 py-2 bg-blue-500 text-white rounded"&gt;Button&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-4"&gt;
+    &lt;div&gt;Grid item 1&lt;/div&gt;
+    &lt;div&gt;Grid item 2&lt;/div&gt;
+    &lt;div&gt;Grid item 3&lt;/div&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Borders</h2>
+    <pre>
+&lt;div class="border-2 border-gray-400 rounded-lg p-4"&gt;Rounded border&lt;/div&gt;
+&lt;div class="border-b-4 border-blue-500"&gt;Bottom border&lt;/div&gt;
+&lt;div class="hover:border-red-500 transition-colors duration-300"&gt;
+    Hover for red border
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Effects</h2>
+    <pre>
+&lt;button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded shadow hover:shadow-lg transition-all duration-300"&gt;
+    Hover for shadow
+&lt;/button&gt;
+&lt;div class="transform hover:scale-110 transition-transform duration-300"&gt;
+    Hover for scale
+&lt;/div&gt;
+&lt;div class="opacity-50 hover:opacity-100 transition-opacity duration-300"&gt;
+    Hover for opacity
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Responsive Design</h2>
+    <pre>
+&lt;div class="text-gray-500 sm:text-blue-500 md:text-red-500 lg:text-green-500"&gt;
+    Responsive text color
+&lt;/div&gt;
+&lt;div class="flex flex-col sm:flex-row justify-between"&gt;
+    &lt;p&gt;Responsive layout&lt;/p&gt;
+    &lt;button&gt;Button&lt;/button&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Utilities</h2>
+    <pre>
+&lt;button class="focus:outline-none active:bg-gray-200"&gt;
+    Focused and active styles
+&lt;/button&gt;
+&lt;div class="overflow-hidden"&gt;
+    Hides overflowing content
+&lt;/div&gt;
+&lt;div class="truncate"&gt;
+    Truncates long text
+&lt;/div&gt;
+    </pre>
+</div>
+
+
+<div class="directive">
+    <h2>Flexbox</h2>
+    <pre>
+&lt;div class="flex"&gt;
+    &lt;div class="flex-1"&gt;Flex item 1&lt;/div&gt;
+    &lt;div class="flex-1"&gt;Flex item 2&lt;/div&gt;
+    &lt;div class="flex-1"&gt;Flex item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="flex flex-col"&gt;
+    &lt;div&gt;Flex item 1&lt;/div&gt;
+    &lt;div&gt;Flex item 2&lt;/div&gt;
+    &lt;div&gt;Flex item 3&lt;/div&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Grid</h2>
+    <pre>
+&lt;div class="grid grid-cols-3 gap-4"&gt;
+    &lt;div&gt;Grid item 1&lt;/div&gt;
+    &lt;div&gt;Grid item 2&lt;/div&gt;
+    &lt;div&gt;Grid item 3&lt;/div&gt;
+    &lt;div&gt;Grid item 4&lt;/div&gt;
+    &lt;div&gt;Grid item 5&lt;/div&gt;
+    &lt;div&gt;Grid item 6&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="grid grid-rows-3 gap-4"&gt;
+    &lt;div&gt;Grid item 1&lt;/div&gt;
+    &lt;div&gt;Grid item 2&lt;/div&gt;
+    &lt;div&gt;Grid item 3&lt;/div&gt;
+    &lt;div&gt;Grid item 4&lt;/div&gt;
+    &lt;div&gt;Grid item 5&lt;/div&gt;
+    &lt;div&gt;Grid item 6&lt;/div&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Opacity</h2>
+    <pre>
+&lt;div class="opacity-0"&gt;Fully transparent&lt;/div&gt;
+&lt;div class="opacity-25"&gt;25% opacity&lt;/div&gt;
+&lt;div class="opacity-50"&gt;50% opacity&lt;/div&gt;
+&lt;div class="opacity-75"&gt;75% opacity&lt;/div&gt;
+&lt;div class="opacity-100"&gt;Fully opaque&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Positioning</h2>
+    <pre>
+&lt;div class="relative"&gt;
+    &lt;div class="absolute top-0 left-0"&gt;Absolute positioned&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="fixed top-0 right-0"&gt;Fixed positioned&lt;/div&gt;
+
+&lt;div class="sticky top-0"&gt;Sticky positioned&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Transforms</h2>
+    <pre>
+&lt;div class="rotate-0 hover:rotate-45 transition-transform duration-300"&gt;
+    Rotate on hover
+&lt;/div&gt;
+
+&lt;div class="skew-x-0 hover:skew-x-12 transition-transform duration-300"&gt;
+    Skew X on hover
+&lt;/div&gt;
+
+&lt;div class="scale-100 hover:scale-105 transition-transform duration-300"&gt;
+    Scale on hover
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Animations</h2>
+    <pre>
+&lt;div class="animate-spin"&gt;
+    Spinning animation
+&lt;/div&gt;
+
+&lt;div class="animate-bounce"&gt;
+    Bouncing animation
+&lt;/div&gt;
+
+&lt;div class="animate-pulse"&gt;
+    Pulsing animation
+&lt;/div&gt;
+    </pre>
+</div>
+
+
+<div class="directive">
+    <h2>Typography</h2>
+    <pre>
+&lt;h1 class="text-4xl font-bold"&gt;Heading 1&lt;/h1&gt;
+&lt;h2 class="text-3xl font-bold"&gt;Heading 2&lt;/h2&gt;
+&lt;h3 class="text-2xl font-bold"&gt;Heading 3&lt;/h3&gt;
+&lt;h4 class="text-xl font-bold"&gt;Heading 4&lt;/h4&gt;
+&lt;p class="text-base"&gt;Paragraph text&lt;/p&gt;
+&lt;a href="#" class="text-blue-500 hover:text-blue-700"&gt;Link&lt;/a&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Lists</h2>
+    <pre>
+&lt;ul class="list-disc pl-6"&gt;
+    &lt;li&gt;List item 1&lt;/li&gt;
+    &lt;li&gt;List item 2&lt;/li&gt;
+    &lt;li&gt;List item 3&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol class="list-decimal pl-6"&gt;
+    &lt;li&gt;List item 1&lt;/li&gt;
+    &lt;li&gt;List item 2&lt;/li&gt;
+    &lt;li&gt;List item 3&lt;/li&gt;
+&lt;/ol&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Forms</h2>
+    <pre>
+&lt;input type="text" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter text"&gt;
+
+&lt;textarea class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Enter text"&gt;&lt;/textarea&gt;
+
+&lt;select class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"&gt;
+    &lt;option&gt;Option 1&lt;/option&gt;
+    &lt;option&gt;Option 2&lt;/option&gt;
+    &lt;option&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Buttons</h2>
+    <pre>
+&lt;button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"&gt;
+    Button
+&lt;/button&gt;
+
+&lt;button class="bg-transparent hover:bg-gray-200 text-blue-500 font-semibold py-2 px-4 border border-blue-500 hover:border-transparent rounded"&gt;
+    Outline Button
+&lt;/button&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Modals</h2>
+    <pre>
+&lt;div class="fixed z-10 inset-0 overflow-y-auto"&gt;
+    &lt;div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"&gt;
+        &lt;div class="fixed inset-0 transition-opacity" aria-hidden="true"&gt;
+            &lt;div class="absolute inset-0 bg-gray-500 opacity-75"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"&gt;&#8203;&lt;/span&gt;
+
+        &lt;div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"&gt;
+            &lt;div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4"&gt;
+                &lt;div class="sm:flex sm:items-start"&gt;
+                    &lt;div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"&gt;
+                        &lt;svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"&gt;
+                            &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /&gt;
+                        &lt;/svg&gt;
+                    &lt;/div&gt;
+                    &lt;div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"&gt;
+                        &lt;h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title"&gt;
+                            Deactivate account
+                        &lt;/h3&gt;
+                        &lt;div class="mt-2"&gt;
+                            &lt;p class="text-sm text-gray-500"&gt;
+                                Are you sure you want to deactivate your account? All of your data will be permanently removed.
+                                This action cannot be undone.
+                            &lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"&gt;
+                &lt;button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"&gt;
+                    Deactivate
+                &lt;/button&gt;
+                &lt;button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"&gt;
+                    Cancel
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Tabs</h2>
+    <pre>
+&lt;div&gt;
+    &lt;div class="border-b border-gray-200"&gt;
+        &lt;nav class="-mb-px flex" aria-label="Tabs"&gt;
+            &lt;a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm"&gt;
+                Tab 1
+            &lt;/a&gt;
+            &lt;a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm"&gt;
+                Tab 2
+            &lt;/a&gt;
+            &lt;a href="#" class="border-indigo-500 text-indigo-600 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" aria-current="page"&gt;
+                Tab 3
+            &lt;/a&gt;
+            &lt;a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm"&gt;
+                Tab 4
+            &lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/div&gt;
+    &lt;div class="py-6"&gt;
+        &lt;!-- Tab content goes here --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+Alright, here's some more Tailwind CSS directives and examples:
+
+<div class="directive">
+    <h2>Alerts</h2>
+    <pre>
+&lt;div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert"&gt;
+    &lt;p class="font-bold"&gt;Informational message&lt;/p&gt;
+    &lt;p&gt;This is an informational message.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert"&gt;
+    &lt;p class="font-bold"&gt;Success message&lt;/p&gt;
+    &lt;p&gt;This is a success message.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert"&gt;
+    &lt;p class="font-bold"&gt;Warning message&lt;/p&gt;
+    &lt;p&gt;This is a warning message.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert"&gt;
+    &lt;p class="font-bold"&gt;Error message&lt;/p&gt;
+    &lt;p&gt;This is an error message.&lt;/p&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Cards</h2>
+    <pre>
+&lt;div class="max-w-sm rounded overflow-hidden shadow-lg"&gt;
+    &lt;img class="w-full" src="https://via.placeholder.com/150" alt="Card image"&gt;
+    &lt;div class="px-6 py-4"&gt;
+        &lt;div class="font-bold text-xl mb-2"&gt;Card Title&lt;/div&gt;
+        &lt;p class="text-gray-700 text-base"&gt;
+            This is a card with an image, title, and some text.
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="px-6 pt-4 pb-2"&gt;
+        &lt;span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"&gt;#tag1&lt;/span&gt;
+        &lt;span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"&gt;#tag2&lt;/span&gt;
+        &lt;span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"&gt;#tag3&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Breadcrumbs</h2>
+    <pre>
+&lt;nav class="flex" aria-label="Breadcrumb"&gt;
+    &lt;ol class="inline-flex items-center space-x-1 md:space-x-3"&gt;
+        &lt;li class="inline-flex items-center"&gt;
+            &lt;a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900"&gt;
+                &lt;svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"&gt;
+                    &lt;path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"&gt;&lt;/path&gt;
+                &lt;/svg&gt;
+                Home
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;div class="flex items-center"&gt;
+                &lt;svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"&gt;
+                    &lt;path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"&gt;&lt;/path&gt;
+                &lt;/svg&gt;
+                &lt;a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2"&gt;Projects&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;div class="flex items-center"&gt;
+                &lt;svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"&gt;
+                    &lt;path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"&gt;&lt;/path&gt;
+                &lt;/svg&gt;
+                &lt;span class="ml-1 text-sm font-medium text-gray-500 md:ml-2"&gt;Project A&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Dropdowns</h2>
+    <pre>
+&lt;div class="relative inline-block text-left"&gt;
+    &lt;div&gt;
+        &lt;button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="menu-button" aria-expanded="true" aria-haspopup="true"&gt;
+            Options
+            &lt;svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+                &lt;path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /&gt;
+            &lt;/svg&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"&gt;
+        &lt;div class="py-1" role="none"&gt;
+            &lt;a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0"&gt;Account settings&lt;/a&gt;
+            &lt;a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1"&gt;Support&lt;/a&gt;
+            &lt;a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2"&gt;License&lt;/a&gt;
+            &lt;form method="POST" action="#" role="none"&gt;
+                &lt;button type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3"&gt;
+                    Sign out
+                &lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Pagination</h2>
+    <pre>
+&lt;nav class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6" aria-label="Pagination"&gt;
+    &lt;div class="hidden sm:block"&gt;
+        &lt;p class="text-sm text-gray-700"&gt;
+            Showing&lt;span class="font-medium"&gt; 1 &lt;/span&gt;to&lt;span class="font-medium"&gt; 10 &lt;/span&gt;of&lt;span class="font-medium"&gt; 100 &lt;/span&gt;results
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="flex flex-1 justify-between sm:justify-end"&gt;
+        &lt;a href="#" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"&gt;
+            Previous
+        &lt;/a&gt;
+        &lt;a href="#" class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"&gt;
+            Next
+        &lt;/a&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+    </pre>
+</div>
+
+<div class="directive">
+    <h2>Tooltips</h2>
+    <pre>
+&lt;div class="relative inline-block"&gt;
+    &lt;button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"&gt;
+        Hover for Tooltip
+    &lt;/button&gt;
+    &lt;div class="absolute z-10 w-64 p-4 m-2 min-w-max bg-gray-600 rounded-md shadow-lg"&gt;
+        &lt;p class="text-sm text-white"&gt;This is a tooltip example.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+    </pre>
+</div>
+
+
+</body>
+</html>
