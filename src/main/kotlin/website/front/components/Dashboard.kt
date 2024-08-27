@@ -1,8 +1,7 @@
 package website.front.components
 
 import kotlinx.html.*
-import website.syntax_extensions.addContent
-import website.syntax_extensions.classes
+import website.syntax_extensions.*
 
 fun FlowContent.dashboard() = div(classes = classes("relative")) {
 
@@ -10,7 +9,16 @@ fun FlowContent.dashboard() = div(classes = classes("relative")) {
 
 
     main(
-        classes("mx-auto", "sm:py-6", "lg:py-8", "min-h-screen", "w-full", "relative", "flex justify-center", "text-center")
+        classes(
+            "mx-auto",
+            "sm:py-6",
+            "lg:py-8",
+            "min-h-screen",
+            "w-full",
+            "relative",
+            "flex justify-center",
+            "text-center"
+        )
     ) {
         attributes["x-data"] = "{ open: false }"
 
@@ -61,28 +69,19 @@ fun FlowContent.dashboard() = div(classes = classes("relative")) {
     }
 
 
-    val dropdownItemStyling = classes(
-        "w-full",
-        "text-gray-700",
-        "p-2",
-        "rounded-sm",
-        "transition",
-        "duration-200",
-        "hover:bg-blue-100",
-        "hover:text-blue-700"
-    )
+    val dropdownItemStyling = classes("w-full", "text-gray-700", "p-2", "rounded-sm", "transition", "duration-200", "hover:bg-blue-100", "hover:text-blue-700")
 
     dropdownMenu(
-        "absolute top-4 right-4 bg-blue-400 text-white p-2 rounded-lg transition duration-400 easy-in-out hover:bg-blue-700 transform hover:scale-103",
-        {
-            LoginButton(classes = dropdownItemStyling)
-        },
-        {
-            RegisterButton(classes = dropdownItemStyling)
-        },
-        {
-            ToggleSwitch("dark-mode", "Dark Mode", classes = dropdownItemStyling)
-        }
+        containerStyling = containerStyling("absolute top-4 right-4 bg-blue-400 text-white p-2 rounded-lg"),
+        containerTransition = containerTransition("transition duration-400 easy-in-out hover:bg-blue-700 transform hover:scale-103"),
+        contentStyling = contentStyling("text-gray-700 p-2 rounded-sm"),
+        contentSize = contentSize("w-full"),
+        contentTransition = contentTransition("transition duration-200 hover:bg-blue-100 hover:text-blue-700"),
+        items = arrayOf(
+            { LoginButton(classes = dropdownItemStyling) },
+            { RegisterButton(classes = dropdownItemStyling) },
+            { ToggleSwitch("dark-mode", "Dark Mode", classes = dropdownItemStyling) }
+        )
     )
 
 

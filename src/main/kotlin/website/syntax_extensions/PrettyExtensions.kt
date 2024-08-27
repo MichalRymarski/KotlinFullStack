@@ -13,5 +13,19 @@ fun FlowContent.addContent(content: String) {
  * @param values The CSS class names to be combined.
  * @return A string of CSS class names separated by spaces.
  */
-fun classes(vararg values: String): String = values.joinToString(" ")
+fun classes(vararg values: String?): String = values.joinToString(" ")
+fun containerClasses(vararg values: String?): String = values.joinToString(" ")
+fun contentClasses(vararg values: String?): String = values.joinToString(" ")
+
+
+fun containerStyling(vararg values : String) = values.joinToString(" ")
+fun contentStyling(vararg values : String) = values.joinToString(" ")
+fun containerPlacement(vararg values : String) = values.joinToString(" ")
+fun contentPlacement(vararg values : String) = values.joinToString(" ")
+fun containerSize(vararg values : String) = values.joinToString(" ")
+fun contentSize(vararg values : String) = values.joinToString(" ")
+fun containerTransition(vararg values : String) = values.joinToString(" ")
+fun contentTransition(vararg values : String) = values.joinToString(" ")
+
+
 
