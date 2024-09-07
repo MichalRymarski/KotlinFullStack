@@ -43,6 +43,10 @@ fun Routing.RegistrationController() {
         val email = parameters["register-email"]
         val password = parameters["register-password"]
 
+        println("Email: $email")
+        println("Password: $password")
+
+
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             call.respondText("Invalid email or password", status = HttpStatusCode.Unauthorized)
         } else {

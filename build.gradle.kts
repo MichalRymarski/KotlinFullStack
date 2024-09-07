@@ -47,6 +47,7 @@ dependencies {
     implementation("io.ktor:ktor-client-serialization")
     implementation("io.ktor:ktor-client-logging")
     implementation("io.ktor:ktor-client-content-negotiation")
+    implementation("io.ktor:ktor-server-cors")
 
     //db
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")

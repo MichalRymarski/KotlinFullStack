@@ -17,6 +17,10 @@ import website.syntax_extensions.classes
 
 fun Routing.LoginController() {
     get("/login") {
+        call.request.headers.forEach { key, values ->
+            println("Header: $key = ${values.joinToString()}")
+        }
+
         call.respondHtml(status = HttpStatusCode.OK) {
             id = "home"
             imports()
@@ -45,6 +49,7 @@ fun Routing.LoginController() {
         println(parameters.toString())
         println(email)
         println(password)
+
 
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             call.respondText("Invalid username or password", status = HttpStatusCode.Unauthorized)

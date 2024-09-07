@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import website.back.db.Users
+import website.back.plugins.Cors
 import website.back.plugins.configureRouting
 
 fun main(args : Array<String>) {
@@ -14,9 +15,12 @@ fun main(args : Array<String>) {
 
     EngineMain.main(args)
 }
+//  ./gradlew run -t
+// ./gradlew installDist -t
 
 @Suppress("unused")
 fun Application.module() {
+    Cors()
     configureRouting()
 }
 
