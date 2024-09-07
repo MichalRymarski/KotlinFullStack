@@ -6,5 +6,5 @@ Backend and Frontend written fully in Kotlin. My tech stack is :
 - Ktor for backend,
 - Kotlin HTML DSL  for generating HTML.  
   
-The idea is to not write anything beside the Kotlin code needed for HTML generation. I embed Tailwind classes , Alpine and HTMX attributes inside the Kotlin code to make reusable, styled and reactive components.  
+The idea is to not write anything beside the Kotlin code needed for HTML generation. I embed Tailwind classes , Alpine and HTMX attributes inside the Kotlin code to make reusable, styled and reactive components and then send them as HTML.  
 This project is a Youtube clone.
