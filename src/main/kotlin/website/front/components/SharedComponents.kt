@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package website.front.components
 
 import kotlinx.html.*
@@ -94,25 +95,23 @@ fun DIV.dropdownMenu(
     contentSize: String? = null,
     containerTransition: String? = null,
     contentTransition: String? = null,
+    buttonText : String? = null,
     vararg items: DIV.() -> Unit
 ) {
-    div(classes = contentClasses(containerStyling, containerPlacement, containerSize, containerTransition)) {
+    div(classes = contentClasses(containerStyling, containerPlacement, containerTransition)) {
         div(classes = classes("relative", "inline-block")) {
             attributes["x-data"] = "{ isOpen: false }"
             button(
                 classes = classes(
-                    "bg-blue-500",
-                    "text-white",
-                    "font-bold",
+                    containerSize,
                     "py-2",
-                    "w-48",
                     "inline-flex",
                     "items-center",
                     "justify-center"
                 )
             ) {
                 attributes["x-on:click"] = "isOpen = !isOpen"
-                addContent("Settings")
+                addContent(buttonText ?: "")
                 i(classes("ml-1")) {
                     attributes["x-bind:class"] = "isOpen ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"
                 }
@@ -120,8 +119,7 @@ fun DIV.dropdownMenu(
             div(
                 classes = classes(
                     "absolute",
-                    "bg-white",
-                    "text-gray-700",
+                    contentStyling,
                     "mt-2",
                     "py-2",
                     "w-48",
@@ -139,7 +137,6 @@ fun DIV.dropdownMenu(
                     "mt-2"
                 )
             ) {
-                attributes["x-on:click"] = "isOpen = !isOpen"
                 attributes["x-show"] = "isOpen"
                 attributes["x-transition:enter"] = "transition ease-out duration-150"
                 attributes["x-transition:enter-start"] = "opacity-0"
@@ -151,11 +148,10 @@ fun DIV.dropdownMenu(
                 items.forEachIndexed { index, item ->
                     div(
                         classes = contentClasses(
-                            contentStyling,
                             contentPlacement,
                             contentTransition,
                             contentSize,
-                            if (index != items.size - 1) "border-b" else "" // Add border between items except for the last one
+                            if (index != items.size - 1) "border-b border-gray-600" else "" // Add border between items except for the last one
                         )
                     ) {
                         item()
@@ -192,7 +188,7 @@ fun DIV.ToggleSwitch(id: String, label: String, classes: String? = null) {
                 this.id = id
                 attributes["x-model"] = "isOn"
             }
-            label(classes = classes("ml-2", "text-gray-700")) {
+            label(classes = classes("ml-2")) {
                 addContent(label)
             }
 
@@ -200,7 +196,7 @@ fun DIV.ToggleSwitch(id: String, label: String, classes: String? = null) {
                 classes = classes(
                     "w-10", "h-6", "rounded-full", "shadow-inner",
                     "transition-colors", "duration-300", "ease-in-out",
-                    "flex", "items-center"
+                    "flex", "items-center" ,"ml-4"
                 )
             ) {
                 attributes["x-bind:class"] = "isOn ? 'bg-blue-500' : 'bg-gray-400'"
@@ -234,6 +230,76 @@ fun DIV.Header() {
         }
     }
 }
+
+fun MAIN.sideBar(
+    containerStyling: String? = null,
+    contentStyling: String? = null,
+    containerPlacement: String? = null,
+    contentPlacement: String? = null,
+    containerSize: String? = null,
+    contentSize: String? = null,
+    containerTransition: String? = null,
+    contentTransition: String? = null,
+    vararg items: DIV.() -> Unit
+) {
+    attributes["x-data"] = "{ open: false }"
+
+    div(
+        classes = contentClasses(
+            "absolute top-0 left-0",
+            "w-48 min-h-screen",
+            "bg-gray-800",
+            "transition-all duration-300",
+            containerStyling,
+            containerPlacement,
+            containerSize,
+            containerTransition
+        )
+    ) {
+        attributes["x-show"] = "open"
+        attributes["x-transition:enter"] = "transform translate-x-0 opacity-100"
+        attributes["x-transition:enter-start"] = "transform -translate-x-full opacity-0"
+        attributes["x-transition:leave-end"] = "transform -translate-x-full opacity-0"
+
+        div(classes("border-t border-gray-500", "absolute", "top-0", "left-0", "w-full"))  // divider
+        button(classes = classes("w-full h-12", "block","text-white")) {
+            attributes["x-on:click"] = "open = !open"
+            i(classes("fas fa-chevron-left"))
+        }
+        items.forEach { item ->
+            div(classes("border-t border-gray-500", "w-full"))  // divider
+            div(classes = contentClasses("my-4", "text-white", contentStyling, contentPlacement, contentSize, contentTransition)) {
+                item()
+            }
+        }
+    }
+    div(
+        classes = contentClasses(
+            "absolute top-0 -left-8",
+            "w-12 h-12",
+            "bg-gray-800",
+            "transition-all",
+            "duration-300",
+            "-z-10",
+            "transition duration-300 ease-in-out transform hover:translate-x-8",
+            containerStyling
+        )
+    ) {
+        attributes["x-show"] = "!open"
+        attributes["x-transition:enter"] = "opacity-100"
+        attributes["x-transition:enter-start"] = "opacity-0"
+        attributes["x-transition:leave-end"] = "opacity-0"
+
+        div(classes("border-t border-gray-500", "w-full"))  // divider
+        button(classes = classes("w-full h-full", "flex justify-end items-center")) {
+            attributes["x-on:click"] = "open = !open"
+            repeat(4) {
+                i(classes("text-white fas fa-chevron-right"))
+            }
+        }
+    }
+}
+
 
 
 

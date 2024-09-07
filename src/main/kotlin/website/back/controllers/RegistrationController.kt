@@ -6,9 +6,11 @@ import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.util.pipeline.*
 import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
+import website.back.db.addUser
 import website.front.components.register
 import website.front.links.imports
 import website.syntax_extensions.classes
@@ -38,17 +40,25 @@ fun Routing.RegistrationController() {
     }
     post("/register") {
         val parameters = call.receiveParameters()
-        val username = parameters["register-username"]
+        val email = parameters["register-email"]
         val password = parameters["register-password"]
 
-        println(parameters.toString())
-        println(username)
-        println(password)
-
-        if (username == null || password == null) {
-            call.respondText("Invalid username or password", status = HttpStatusCode.Unauthorized)
+        if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
+            call.respondText("Invalid email or password", status = HttpStatusCode.Unauthorized)
         } else {
-            call.response.headers.append("HX-Redirect", "/")
+            handleRegister(email, password)
         }
+    }
+}
+
+private suspend fun PipelineContext<Unit, ApplicationCall>.handleRegister(
+    email: String,
+    password: String
+) {
+    val success = addUser(email, password)
+    if (success) {
+        call.response.headers.append("HX-Redirect", "/")
+    } else {
+        call.respondText("Email is already in use", status = HttpStatusCode.Unauthorized)
     }
 }

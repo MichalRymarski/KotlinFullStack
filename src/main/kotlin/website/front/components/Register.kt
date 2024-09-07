@@ -27,13 +27,13 @@ fun FlowContent.register() {
                     addContent("Register")
                 }
             }
-            formInput(InputType.text, "Username", true, "register-username")
+            formInput(InputType.text, "Username", true, "register-email")
 
             formInput(InputType.text, "Password", true, "register-password")
 
             formButton(
                 "Register",
-                "register-username",
+                "register-email",
                 "register-password",
                 "/register",
             )

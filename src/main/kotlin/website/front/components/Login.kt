@@ -29,13 +29,13 @@ fun FlowContent.login() {
                     addContent("Login")
                 }
             }
-            formInput(InputType.text, "Username", true, "login-username")
+            formInput(InputType.text, "Username", true, "login-email")
 
             formInput(InputType.text, "Password", true, "login-password")
 
             formButton(
                 "Login",
-                "login-username",
+                "login-email",
                 "login-password",
                 "/login",
             )

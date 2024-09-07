@@ -1,6 +1,9 @@
 val kotlin_version: String by project
 val logback_version: String by project
 val kotlinx_html_version: String by project
+val exposed_version : String by project
+val postgres_version: String by project
+
 
 plugins {
     kotlin("jvm") version "2.0.10"
@@ -14,7 +17,7 @@ version = "0.0.1"
 application {
     mainClass.set("website.ApplicationKt")
 
-    val isDevelopment: Boolean = true
+    val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
@@ -44,4 +47,12 @@ dependencies {
     implementation("io.ktor:ktor-client-serialization")
     implementation("io.ktor:ktor-client-logging")
     implementation("io.ktor:ktor-client-content-negotiation")
+
+    //db
+    implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposed_version")
+    implementation("org.postgresql:postgresql:$postgres_version")
+
 }
