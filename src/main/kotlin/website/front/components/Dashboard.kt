@@ -3,11 +3,12 @@ package website.front.components
 import kotlinx.html.FlowContent
 import kotlinx.html.div
 import kotlinx.html.main
-import website.syntax_extensions.*
+import website.syntax_extensions.addContent
+import website.syntax_extensions.classes
 
 fun FlowContent.dashboard() = div(classes = classes("relative")) {
 
-    Header()
+    headerNotLoggedIn()
 
     main(
         classes(
@@ -35,7 +36,7 @@ fun FlowContent.dashboard() = div(classes = classes("relative")) {
 
     val dropdownItemStyling = classes("w-full", "text-white font-bold", "p-2", "rounded-sm", "bg-gray-700", "transition  duration-200  hover:text-blue-700")
 
-    dropdownMenu(
+  /*  dropdownMenu(
         containerStyling = containerStyling("bg-blue-400 text-white font-bold p-2 rounded-lg"),
         containerPlacement = containerPlacement("absolute top-4 right-4 "),
         containerTransition = containerTransition("transition duration-400 easy-in-out hover:bg-blue-700 transform hover:scale-103"),
@@ -49,7 +50,7 @@ fun FlowContent.dashboard() = div(classes = classes("relative")) {
             { RegisterButton(classes = dropdownItemStyling) },
             { ToggleSwitch("dark-mode", "Dark Mode", classes = dropdownItemStyling) }
         )
-    )
+    )*/
 }
 
 

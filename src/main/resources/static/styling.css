@@ -1,21 +1,16 @@
-.transition-effect {
-    transition: all 0.8s ease;
-    transform: scale(1.8);
-    transition: all 0.8s ease;
-    transform: scale(0.5);
-    transition: all 0.8s ease;
-    transform: scale(1);
+
+
+.my-header{
+    background-color: #1c1b1e;
+    height: 4.5rem;
 }
 
-
-
-#dashboard {
-    cursor: pointer;
-    color: white;
-    text-decoration: none;
+.my-sign-in{
+    border-color: #303030;
+    border-style: solid;
+    background-color: #1c1b1e;
 }
 
-#dashboard:hover {
-    color: inherit;
-    text-decoration: none;
+.my-interactive {
+    color: #3ea6ff;
 }

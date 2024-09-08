@@ -1,11 +1,15 @@
 package website.syntax_extensions
 
 import kotlinx.html.FlowContent
+import kotlinx.html.Unsafe
 
 fun FlowContent.addContent(content: String) {
     +content
 }
 
+fun Unsafe.addContent(content : String){
+    +content
+}
 
 
 /**

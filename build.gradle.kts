@@ -21,6 +21,14 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+tasks.register<Exec>("buildFrontend") {
+    commandLine("npm.cmd", "run", "build:css")
+}
+
+tasks.named("processResources") {
+   dependsOn("buildFrontend")
+}
+
 repositories {
     mavenCentral()
 }
