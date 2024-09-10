@@ -246,21 +246,36 @@ fun DIV.HeaderNotLoggedIn() {
         MenuButton(menuIcon)
         YoutubeButton(youtubeLogo)
 
-        span(classes = classes("absolute  mx-auto w-1/3 top-4 left-1/2 transform -translate-x-1/2 h-10 rounded-full my-onBackground  flex justify-center items-center")) {
-            input(
-                classes = classes("w-11/12 h-full pl-4  rounded-l-full rounded-r-none my-search my-onBackground transition duration-150 ease-in-out focus:outline-none focus:border-blue-200"),
-                type = InputType.search
-            ) {
-                placeholder = "Search"
-            }
-            button(classes = "w-1/12 h-full  rounded-r-full rounded-l-none my-searchButton my-onBackground  flex justify-center items-center") {
-                i(classes = "material-symbols-outlined") {
+        span(classes = classes("absolute mx-auto top-4 left-1/2 transform -translate-x-1/2 h-10 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
+            attributes["x-data"] = "{ focused: false, search: true, inputValue: '' }"
+            attributes["x-show"] = "search"
+            attributes["x-bind:class"] = "focused ? 'w-1/3' : 'w-1/4'"
+
+            div(classes = classes("relative flex items-center w-full h-full")) {
+                attributes["x-on:click.away"] = "focused = false"
+
+                i(classes = classes("material-symbols-outlined absolute left-3 transition-opacity duration-300 ease-in-out")) {
+                    attributes["x-show"] = "focused"
+                    attributes["x-bind:class"] = "focused ? 'opacity-100' : 'opacity-0'"
                     addContent("search")
+                }
+
+                input(
+                    classes = classes("w-11/12 h-full rounded-l-full rounded-r-0 my-search my-onBackground transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-200"),
+                    type = InputType.search
+                ) {
+                    placeholder = "Search"
+                    attributes["x-on:focus"] = "focused = true"
+                    attributes["x-bind:class"] = "focused ? 'pl-10 pr-16' : 'pl-4 pr-12'"
+                }
+
+                button(classes = "absolute w-1/12 right-0 h-full px-4 rounded-r-full my-searchButton my-onBackground flex justify-center items-center") {
+                    i(classes = "material-symbols-outlined") {
+                        addContent("search")
+                    }
                 }
             }
         }
-
-
         SignInButton(signInIcon)
     }
 }
