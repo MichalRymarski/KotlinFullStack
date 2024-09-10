@@ -248,7 +248,7 @@ fun DIV.HeaderNotLoggedIn() {
 
         span(classes = classes("absolute  mx-auto w-1/3 top-4 left-1/2 transform -translate-x-1/2 h-10 rounded-full my-onBackground  flex justify-center items-center")) {
             input(
-                classes = classes("w-11/12 h-full pl-4  rounded-l-full rounded-r-none my-search transition duration-150 ease-in-out focus:outline-none focus:border-blue-200"),
+                classes = classes("w-11/12 h-full pl-4  rounded-l-full rounded-r-none my-search my-onBackground transition duration-150 ease-in-out focus:outline-none focus:border-blue-200"),
                 type = InputType.search
             ) {
                 placeholder = "Search"
