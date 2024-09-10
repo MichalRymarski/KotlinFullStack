@@ -216,10 +216,13 @@ fun DIV.ToggleSwitch(id: String, label: String, classes: String? = null) {
     }
 }
 
-fun DIV.headerNotLoggedIn() {
-    val menuIcon = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" focusable=\"false\" aria-hidden=\"true\" style=\"pointer-events: none; display: inherit; width: 100%; height: 100%;\" fill=\"${Colors.text}\"><path d=\"M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z\"></path></svg>"
-    val signInIcon = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" focusable=\"false\" aria-hidden=\"true\" style=\"pointer-events: none; display: inherit; width: 100%; height: 100%;\" fill=\"currentColor\"><path  d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 1c4.96 0 9 4.04 9 9 0 1.42-.34 2.76-.93 3.96-1.53-1.72-3.98-2.89-7.38-3.03A3.996 3.996 0 0016 9c0-2.21-1.79-4-4-4S8 6.79 8 9c0 1.97 1.43 3.6 3.31 3.93-3.4.14-5.85 1.31-7.38 3.03C3.34 14.76 3 13.42 3 12c0-4.96 4.04-9 9-9zM9 9c0-1.65 1.35-3 3-3s3 1.35 3 3-1.35 3-3 3-3-1.35-3-3zm3 12c-3.16 0-5.94-1.64-7.55-4.12C6.01 14.93 8.61 13.9 12 13.9c3.39 0 5.99 1.03 7.55 2.98C17.94 19.36 15.16 21 12 21z\"></path></svg>"
-    val youtubeLogo = """<svg xmlns="http://www.w3.org/2000/svg" id="yt-logo-updated-svg_yt9" class="external-icon" viewBox="0 0 90 20" focusable="false" aria-hidden="true" style="pointer-events: none; display: inherit; width: 100%; height: 100%;">
+fun DIV.HeaderNotLoggedIn() {
+    val menuIcon =
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" focusable=\"false\" aria-hidden=\"true\" style=\"pointer-events: none; display: inherit; width: 100%; height: 100%;\" fill=\"${Colors.text}\"><path d=\"M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z\"></path></svg>"
+    val signInIcon =
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" focusable=\"false\" aria-hidden=\"true\" style=\"pointer-events: none; display: inherit; width: 100%; height: 100%;\" fill=\"currentColor\"><path  d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 1c4.96 0 9 4.04 9 9 0 1.42-.34 2.76-.93 3.96-1.53-1.72-3.98-2.89-7.38-3.03A3.996 3.996 0 0016 9c0-2.21-1.79-4-4-4S8 6.79 8 9c0 1.97 1.43 3.6 3.31 3.93-3.4.14-5.85 1.31-7.38 3.03C3.34 14.76 3 13.42 3 12c0-4.96 4.04-9 9-9zM9 9c0-1.65 1.35-3 3-3s3 1.35 3 3-1.35 3-3 3-3-1.35-3-3zm3 12c-3.16 0-5.94-1.64-7.55-4.12C6.01 14.93 8.61 13.9 12 13.9c3.39 0 5.99 1.03 7.55 2.98C17.94 19.36 15.16 21 12 21z\"></path></svg>"
+    val youtubeLogo =
+        """<svg xmlns="http://www.w3.org/2000/svg" id="yt-logo-updated-svg_yt9" class="external-icon" viewBox="0 0 90 20" focusable="false" aria-hidden="true" style="pointer-events: none; display: inherit; width: 100%; height: 100%;">
             <svg id="yt-logo-updated_yt9" viewBox="0 0 90 20" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                 <g>
                     <path d="M27.9727 3.12324C27.6435 1.89323 26.6768 0.926623 25.4468 0.597366C23.2197 2.24288e-07 14.285 0 14.285 0C14.285 0 5.35042 2.24288e-07 3.12323 0.597366C1.89323 0.926623 0.926623 1.89323 0.597366 3.12324C2.24288e-07 5.35042 0 10 0 10C0 10 2.24288e-07 14.6496 0.597366 16.8768C0.926623 18.1068 1.89323 19.0734 3.12323 19.4026C5.35042 20 14.285 20 14.285 20C14.285 20 23.2197 20 25.4468 19.4026C26.6768 19.0734 27.6435 18.1068 27.9727 16.8768C28.5701 14.6496 28.5701 10 28.5701 10C28.5701 10 28.5677 5.35042 27.9727 3.12324Z" fill="#FF0000" data-darkreader-inline-fill="" style="--darkreader-inline-fill: #ff1a1a;"></path>
@@ -239,32 +242,60 @@ fun DIV.headerNotLoggedIn() {
             </svg>
         </svg>"""
 
-    header(classes = classes("my-header text-white font-bold relative")) {
-        button(classes = classes("absolute top-6 left-8 "), type = ButtonType.button, name = "menu") {
-            attributes["title"] = "Menu"
-            unsafe { addContent(menuIcon) }
-        }
-        button(
-            classes = classes("absolute top-6 left-16 w-32 h-6  flex items-center justify-center"),
-            type = ButtonType.button
-        ) {
-            unsafe { addContent(youtubeLogo) }
-        }
-        button(
-            classes = classes(
-                "absolute top-3 right-8 w-32 h-12 my-sign-in border-2  background-color: ${Colors.background};",
-                "flex", "items-center", "justify-center",  "hover:bg-blue-100",
-                "text-blue-400", "font-medium",
-                "rounded-full",
-                "transition", "duration-150", "ease-in-out",
-                "text-sm"
-            )
-        ) {
-            span(classes = classes("mr-2 block ")) {
-                unsafe { addContent(signInIcon) }
+    header(classes = classes("my-header text-white font-bold relative w-full")) {
+        MenuButton(menuIcon)
+        YoutubeButton(youtubeLogo)
+
+        span(classes = classes("absolute  mx-auto w-1/3 top-4 left-1/2 transform -translate-x-1/2 h-10 rounded-full my-onBackground  flex justify-center items-center")) {
+            input(
+                classes = classes("w-11/12 h-full pl-4  rounded-l-full rounded-r-none my-search transition duration-150 ease-in-out focus:outline-none focus:border-blue-200"),
+                type = InputType.search
+            ) {
+                placeholder = "Search"
             }
-            addContent("Sign in")
+            button(classes = "w-1/12 h-full  rounded-r-full rounded-l-none my-searchButton my-onBackground  flex justify-center items-center") {
+                i(classes = "material-symbols-outlined") {
+                    addContent("search")
+                }
+            }
         }
+
+
+        SignInButton(signInIcon)
+    }
+}
+
+private fun HEADER.SignInButton(signInIcon: String) {
+    button(
+        classes = classes(
+            "absolute top-3 right-8 w-32 h-12 my-sign-in border-2",
+            "flex", "items-center", "justify-center",
+            "text-blue-400", "font-medium",
+            "rounded-full",
+            "transition duration-150 ease-in-out hover:bg-blue-200",
+            "text-sm"
+        )
+    ) {
+        span(classes = classes("mr-2 block ")) {
+            unsafe { addContent(signInIcon) }
+        }
+        addContent("Sign in")
+    }
+}
+
+private fun HEADER.YoutubeButton(youtubeLogo: String) {
+    button(
+        classes = classes("absolute top-6 left-16 w-32 h-6  flex items-center justify-center"),
+        type = ButtonType.button
+    ) {
+        unsafe { addContent(youtubeLogo) }
+    }
+}
+
+private fun HEADER.MenuButton(menuIcon: String) {
+    button(classes = classes("absolute top-6 left-8 "), type = ButtonType.button, name = "menu") {
+        attributes["title"] = "Menu"
+        unsafe { addContent(menuIcon) }
     }
 }
 

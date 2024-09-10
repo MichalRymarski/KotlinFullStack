@@ -11,6 +11,25 @@
     background-color: #1c1b1e;
 }
 
+.my-onBackground{
+    background-color: #121212;
+}
+
+.my-searchButton{
+    border-color: #303030;
+    border-style: solid;
+    background-color: #1c1b1e;
+    border-width: 2px;
+    border-left-width: 0;
+}
+
+.my-search{
+    border-color: #303030;
+    border-style: solid;
+    border-width: 1px;
+}
+
+
 .my-interactive {
     color: #3ea6ff;
 }

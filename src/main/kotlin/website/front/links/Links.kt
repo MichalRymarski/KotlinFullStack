@@ -12,6 +12,7 @@ const val  HTMX = "https://unpkg.com/htmx.org"
 const val  API_LINK = "http://127.0.0.1:8080"
 const val  AlpineJS = "https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
 const val icons = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+const val loopIcon = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0"
 
 // Alpine.js Plugins
 const val AlpineScroll = "https://cdn.jsdelivr.net/npm/@alpinejs/scroll@3.x.x/dist/cdn.min.js"
@@ -22,6 +23,10 @@ fun HTML.imports() {
         link(rel = stylesheet, href = styling, type = "text/css")
         link(rel = stylesheet, href = Tailwind, type = "text/css")
         link(rel = stylesheet, href = icons, type = "text/css")
+        link {
+            rel = stylesheet
+            href = loopIcon
+        }
 
         script(src = HTMX) {}
         script(src = AlpineJS) {

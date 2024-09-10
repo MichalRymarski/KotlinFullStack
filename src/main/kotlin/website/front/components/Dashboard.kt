@@ -8,7 +8,7 @@ import website.syntax_extensions.classes
 
 fun FlowContent.dashboard() = div(classes = classes("relative")) {
 
-    headerNotLoggedIn()
+    HeaderNotLoggedIn()
 
     main(
         classes(
