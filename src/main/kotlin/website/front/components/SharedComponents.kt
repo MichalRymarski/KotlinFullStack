@@ -217,6 +217,7 @@ fun DIV.ToggleSwitch(id: String, label: String, classes: String? = null) {
 }
 
 fun DIV.HeaderNotLoggedIn() {
+    attributes["x-data"] = "{ sidebarOpen: false }"
     val menuIcon =
         "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" focusable=\"false\" aria-hidden=\"true\" style=\"pointer-events: none; display: inherit; width: 100%; height: 100%;\" fill=\"${Colors.text}\"><path d=\"M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z\"></path></svg>"
     val signInIcon =
@@ -242,41 +243,44 @@ fun DIV.HeaderNotLoggedIn() {
             </svg>
         </svg>"""
 
-    header(classes = classes("my-header text-white font-bold relative w-full")) {
+    header(classes = classes("my-header text-white font-bold relative w-full z-10 fixed ")) {
         MenuButton(menuIcon)
         YoutubeButton(youtubeLogo)
+        SearchBar()
+        SignInButton(signInIcon)
+    }
+}
 
-        span(classes = classes("absolute mx-auto top-4 left-1/2 transform -translate-x-1/2 h-10 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
-            attributes["x-data"] = "{ focused: false, search: true, inputValue: '' }"
-            attributes["x-show"] = "search"
-            attributes["x-bind:class"] = "focused ? 'w-1/3' : 'w-1/4'"
+private fun HEADER.SearchBar() {
+    span(classes = classes("absolute mx-auto top-4 left-1/2 transform -translate-x-1/2 h-10 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
+        attributes["x-data"] = "{ focused: false, search: true, inputValue: '' }"
+        attributes["x-show"] = "search"
+        attributes["x-bind:class"] = "focused ? 'w-1/3' : 'w-1/4'"
 
-            div(classes = classes("relative flex items-center w-full h-full")) {
-                attributes["x-on:click.away"] = "focused = false"
+        div(classes = classes("relative flex items-center w-full h-full")) {
+            attributes["x-on:click.away"] = "focused = false"
 
-                i(classes = classes("material-symbols-outlined absolute left-3 transition-opacity duration-300 ease-in-out")) {
-                    attributes["x-show"] = "focused"
-                    attributes["x-bind:class"] = "focused ? 'opacity-100' : 'opacity-0'"
+            i(classes = classes("material-symbols-outlined absolute left-3 transition-opacity duration-300 ease-in-out")) {
+                attributes["x-show"] = "focused"
+                attributes["x-bind:class"] = "focused ? 'opacity-100' : 'opacity-0'"
+                addContent("search")
+            }
+
+            input(
+                classes = classes("w-11/12 h-full pr-2 rounded-l-full rounded-r-0 my-search my-onBackground transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-200"),
+                type = InputType.search
+            ) {
+                placeholder = "Search"
+                attributes["x-on:focus"] = "focused = true"
+                attributes["x-bind:class"] = "focused ? 'pl-10' : 'pl-4 '"
+            }
+
+            button(classes = "absolute w-1/12 right-0 h-full px-4 rounded-r-full my-searchButton my-onBackground flex justify-center items-center") {
+                i(classes = "material-symbols-outlined") {
                     addContent("search")
-                }
-
-                input(
-                    classes = classes("w-11/12 h-full rounded-l-full rounded-r-0 my-search my-onBackground transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-200"),
-                    type = InputType.search
-                ) {
-                    placeholder = "Search"
-                    attributes["x-on:focus"] = "focused = true"
-                    attributes["x-bind:class"] = "focused ? 'pl-10 pr-16' : 'pl-4 pr-12'"
-                }
-
-                button(classes = "absolute w-1/12 right-0 h-full px-4 rounded-r-full my-searchButton my-onBackground flex justify-center items-center") {
-                    i(classes = "material-symbols-outlined") {
-                        addContent("search")
-                    }
                 }
             }
         }
-        SignInButton(signInIcon)
     }
 }
 
@@ -300,21 +304,66 @@ private fun HEADER.SignInButton(signInIcon: String) {
 
 private fun HEADER.YoutubeButton(youtubeLogo: String) {
     button(
-        classes = classes("absolute top-6 left-16 w-32 h-6  flex items-center justify-center"),
+        classes = classes("absolute top-6 left-20 w-32 h-6  flex items-center justify-center"),
         type = ButtonType.button
     ) {
         unsafe { addContent(youtubeLogo) }
     }
 }
 
-private fun HEADER.MenuButton(menuIcon: String) {
-    button(classes = classes("absolute top-6 left-8 "), type = ButtonType.button, name = "menu") {
-        attributes["title"] = "Menu"
-        unsafe { addContent(menuIcon) }
+fun DIV.MenuSidebar(){
+    aside (classes = classes( "w-56", "fixed", "left-0", "top-16", "bottom-0", "overflow-y-auto", "transition-all", "duration-300", "ease-in-out", "z-10 my-sidebar")) {
+        attributes["x-show"] = "sidebarOpen"
+        attributes["x-transition:enter"] = "transition ease-out duration-300"
+        attributes["x-transition:enter-start"] = "opacity-0 transform -translate-x-full"
+        attributes["x-transition:enter-end"] = "opacity-100 transform translate-x-0"
+        attributes["x-transition:leave"] = "transition ease-in duration-300"
+        attributes["x-transition:leave-start"] = "opacity-100 transform translate-x-0"
+        attributes["x-transition:leave-end"] = "opacity-0 transform -translate-x-full"
+
+        nav(classes = "p-4") {
+            ul(classes = "space-y-2") {
+                listOf("Home", "Shorts", "Subscriptions").forEach { item ->
+                    li {
+                        a(href = "#", classes = "flex items-center  hover:bg-gray-100 px-4 py-2 rounded-lg") {
+                            img(classes = "h-7 w-7 mr-3") {
+                                src = "/static/${item}.svg"
+                                alt = "/static/loading.gif"
+                            }
+                            addContent(item)
+                        }
+                    }
+                }
+            }
+
+            hr(classes = "my-4")
+
+            h3(classes = "text-sm font-semibold  uppercase tracking-wider mb-2 ml-4") {
+                +"Subscriptions"
+            }
+
+            ul(classes = "space-y-2") {
+                listOf("Channel 1", "Channel 2", "Channel 3").forEachIndexed { index, channel ->
+                    li {
+                        a(href = "#", classes = "flex items-center hover:bg-gray-700 px-4 py-2 rounded-lg") {
+                            img(src = "https://placekitten.com/${24 + index}/${24 + index}", alt = channel, classes = "h-6 w-6 rounded-full mr-3")
+                            +channel
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
-fun MAIN.sideBar(
+private fun HEADER.MenuButton(menuIcon: String) {
+    button(classes = classes("absolute top-6 left-8"), type = ButtonType.button, name = "menu") {
+        attributes["title"] = "Menu"
+        attributes["x-on:click"] = "sidebarOpen = !sidebarOpen"
+        unsafe { addContent(menuIcon) }
+    }
+}
+fun DIV.sideBar(
     containerStyling: String? = null,
     contentStyling: String? = null,
     containerPlacement: String? = null,
@@ -330,7 +379,7 @@ fun MAIN.sideBar(
     div(
         classes = contentClasses(
             "absolute top-0 left-0",
-            "w-48 min-h-screen",
+            "w-64 min-h-screen",
             "bg-gray-800",
             "transition-all duration-300",
             containerStyling,
@@ -339,7 +388,6 @@ fun MAIN.sideBar(
             containerTransition
         )
     ) {
-        attributes["x-show"] = "open"
         attributes["x-transition:enter"] = "transform translate-x-0 opacity-100"
         attributes["x-transition:enter-start"] = "transform -translate-x-full opacity-0"
         attributes["x-transition:leave-end"] = "transform -translate-x-full opacity-0"

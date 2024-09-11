@@ -21,6 +21,8 @@ fun Routing.LoginController() {
             println("Header: $key = ${values.joinToString()}")
         }
 
+    //    call.respondFile(File("D:\\intellij\\PROJEKTY\\KtorWebsite-HTMX-TAILWIND\\src\\main\\kotlin\\tailwind.html"))
+        //! THIS FOOKING WORKS !!!
         call.respondHtml(status = HttpStatusCode.OK) {
             id = "home"
             imports()

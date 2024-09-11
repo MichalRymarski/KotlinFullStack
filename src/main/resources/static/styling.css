@@ -1,7 +1,18 @@
 
+:root {
+    --background-color: #1c1b1e;
+    --on-background-color: #121212;
+    --test-color: #e8e6e3;
+}
+
 .my-header {
-    background-color: #1c1b1e;
+    background-color: var(--background-color);
     height: 4.5rem;
+}
+
+.my-sidebar {
+    background-color: var(--background-color);
+    color: var(--test-color);
 }
 
 .my-sign-in {
@@ -27,7 +38,7 @@
     border-style: solid;
     border-width: 1px;
     color: #e8e6e3;
-    font-weight:500;
+    font-weight: 500;
     font-family: "Roboto Light", sans-serif;
 }
 

@@ -2,35 +2,25 @@ package website.front.components
 
 import kotlinx.html.FlowContent
 import kotlinx.html.div
+import kotlinx.html.img
 import kotlinx.html.main
-import website.syntax_extensions.addContent
 import website.syntax_extensions.classes
 
 fun FlowContent.dashboard() = div(classes = classes("relative")) {
+    attributes["x-data"] = "{ sidebarOpen: false }"
 
     HeaderNotLoggedIn()
-
+    MenuSidebar()
     main(
-        classes(
-            "mx-auto",
-            "sm:py-6",
-            "lg:py-8",
-            "min-h-screen",
-            "w-full",
-            "relative",
-            "flex justify-center",
-            "text-center"
-        )
+        classes("mx-auto", "sm:py-6", "lg:py-8", "min-h-screen", "w-full", "relative", "flex justify-center", "text-center")
     ) {
-        sideBar(
-            items = arrayOf(
-            {div {addContent("smth")}},
-            {div {addContent("smth")}},
-            {div {addContent("smth")}},
-            {div {addContent("smth")}},
-        ))
+        attributes ["x-bind:class"] = "{ 'ml-56': sidebarOpen, 'ml-0': !sidebarOpen }"
 
         div(classes = classes("inline-block","w-full", "bg-gray-700","px-8")) {
+            img(classes = classes("w-full", "h-full", "object-cover")) {
+                src = "/static/background.jpg"
+                alt = "Background Image"
+            }
         }
     }
 
