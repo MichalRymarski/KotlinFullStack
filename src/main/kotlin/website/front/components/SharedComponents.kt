@@ -314,14 +314,8 @@ private fun HEADER.YoutubeButton(youtubeLogo: String) {
 fun DIV.MenuMovingSidebar(){
     aside (classes = classes( "w-56", "fixed", "left-0", "top-16", "bottom-0", "overflow-y-auto", "transition-all", "duration-300", "ease-in-out", "z-10 my-sidebar")) {
         attributes["x-show"] = "sidebarOpen"
-        attributes["x-transition:enter"] = "transition ease-out duration-300"
-        attributes["x-transition:enter-start"] = "opacity-0 transform -translate-x-full"
-        attributes["x-transition:enter-end"] = "opacity-100 transform translate-x-0"
-        attributes["x-transition:leave"] = "transition ease-in duration-300"
-        attributes["x-transition:leave-start"] = "opacity-100 transform translate-x-0"
-        attributes["x-transition:leave-end"] = "opacity-0 transform -translate-x-full"
 
-        nav(classes = "pl-0 p-4") {
+        nav(classes = "pl-0 p-4 my-1") {
             ul(classes = "space-y-2") {
                 listOf("Home", "Shorts", "Subscriptions").forEach { item ->
                     li {
