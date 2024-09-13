@@ -1,8 +1,8 @@
 
 :root {
     --background-color: #1c1b1e;
-    --on-background-color: #121212;
-    --test-color: #e8e6e3;
+    --on-background-color: #222222;
+    --text-color: #e8e6e3;
 }
 
 .my-header {
@@ -12,7 +12,7 @@
 
 .my-sidebar {
     background-color: var(--background-color);
-    color: var(--test-color);
+    color: var(--text-color);
 }
 
 .my-sign-in {
@@ -29,10 +29,21 @@
     background-color: var(--on-background-color);
 }
 
+.my-text{
+    color: var(--text-color);
+    font-family: "Roboto Light", sans-serif;
+    font-weight: 600;
+    background-color: var(--on-background-color);
+}
+
+.my-text.chosen-tag {
+    background-color: var(--text-color);
+    color: var(--on-background-color);
+}
+
 .my-searchButton {
     border-color: #303030;
     border-style: solid;
-    background-color: #1c1b1e;
     border-width: 1px;
     border-left-width: 0;
 }
@@ -41,7 +52,8 @@
     border-color: #303030;
     border-style: solid;
     border-width: 1px;
-    color: #e8e6e3;
+    background-color: var(--background-color);
+    color: var(--text-color);
     font-weight: 500;
     font-family: "Roboto Light", sans-serif;
 }
