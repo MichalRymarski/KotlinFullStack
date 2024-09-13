@@ -21,8 +21,12 @@
     background-color: #1c1b1e;
 }
 
+.my-background{
+    background-color: var(--background-color);
+}
+
 .my-onBackground {
-    background-color: #121212;
+    background-color: var(--on-background-color);
 }
 
 .my-searchButton {

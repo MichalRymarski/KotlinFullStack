@@ -16,7 +16,7 @@ fun Routing.HomeController() {
         call.respondHtml(status = HttpStatusCode.OK) {
             imports()
 
-            body(classes = classes("bg-gray-700","overflow-hidden")) {
+            body(classes = classes("my-background","overflow-hidden")) {
                 id = "home"
                 dashboard()
                 script { src = "/static/test.js" }

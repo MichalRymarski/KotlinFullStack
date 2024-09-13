@@ -304,14 +304,14 @@ private fun HEADER.SignInButton(signInIcon: String) {
 
 private fun HEADER.YoutubeButton(youtubeLogo: String) {
     button(
-        classes = classes("absolute top-6 left-20 w-32 h-6  flex items-center justify-center"),
+        classes = classes("absolute top-6 left-16 w-32 h-6  flex items-center justify-center"),
         type = ButtonType.button
     ) {
         unsafe { addContent(youtubeLogo) }
     }
 }
 
-fun DIV.MenuSidebar(){
+fun DIV.MenuMovingSidebar(){
     aside (classes = classes( "w-56", "fixed", "left-0", "top-16", "bottom-0", "overflow-y-auto", "transition-all", "duration-300", "ease-in-out", "z-10 my-sidebar")) {
         attributes["x-show"] = "sidebarOpen"
         attributes["x-transition:enter"] = "transition ease-out duration-300"
@@ -321,11 +321,11 @@ fun DIV.MenuSidebar(){
         attributes["x-transition:leave-start"] = "opacity-100 transform translate-x-0"
         attributes["x-transition:leave-end"] = "opacity-0 transform -translate-x-full"
 
-        nav(classes = "p-4") {
+        nav(classes = "pl-0 p-4") {
             ul(classes = "space-y-2") {
                 listOf("Home", "Shorts", "Subscriptions").forEach { item ->
                     li {
-                        a(href = "#", classes = "flex items-center  hover:bg-gray-100 px-4 py-2 rounded-lg") {
+                        a(href = "#", classes = "flex items-center  hover:bg-gray-700 px-4 py-2 rounded-lg") {
                             img(classes = "h-7 w-7 mr-3") {
                                 src = "/static/${item}.svg"
                                 alt = "/static/loading.gif"
@@ -346,8 +346,8 @@ fun DIV.MenuSidebar(){
                 listOf("Channel 1", "Channel 2", "Channel 3").forEachIndexed { index, channel ->
                     li {
                         a(href = "#", classes = "flex items-center hover:bg-gray-700 px-4 py-2 rounded-lg") {
-                            img(src = "https://placekitten.com/${24 + index}/${24 + index}", alt = channel, classes = "h-6 w-6 rounded-full mr-3")
-                            +channel
+                            img(src = "https://placekitten.com/${24 + index}/${24 + index}", alt = channel, classes = "h-6 w-6 pl-1 rounded-full mr-3")
+                            addContent(channel)
                         }
                     }
                 }
@@ -357,7 +357,7 @@ fun DIV.MenuSidebar(){
 }
 
 private fun HEADER.MenuButton(menuIcon: String) {
-    button(classes = classes("absolute top-6 left-8"), type = ButtonType.button, name = "menu") {
+    button(classes = classes("absolute top-6 left-5"), type = ButtonType.button, name = "menu") {
         attributes["title"] = "Menu"
         attributes["x-on:click"] = "sidebarOpen = !sidebarOpen"
         unsafe { addContent(menuIcon) }
