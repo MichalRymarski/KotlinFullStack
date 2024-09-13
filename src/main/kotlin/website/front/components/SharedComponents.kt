@@ -252,10 +252,10 @@ fun DIV.HeaderNotLoggedIn() {
 }
 
 private fun HEADER.SearchBar() {
-    span(classes = classes("absolute mx-auto top-4 left-1/2 transform -translate-x-1/2 h-10 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
+    span(classes = classes("absolute mx-auto top-2 left-1/2 transform -translate-x-1/2 h-12 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
         attributes["x-data"] = "{ focused: false, search: true, inputValue: '' }"
         attributes["x-show"] = "search"
-        attributes["x-bind:class"] = "focused ? 'w-1/3' : 'w-1/4'"
+        attributes["x-bind:style"] = "focused ? 'width: 39%' : 'width: 33%'"
 
         div(classes = classes("relative flex items-center w-full h-full")) {
             attributes["x-on:click.away"] = "focused = false"
@@ -287,7 +287,7 @@ private fun HEADER.SearchBar() {
 private fun HEADER.SignInButton(signInIcon: String) {
     button(
         classes = classes(
-            "absolute top-3 right-8 w-32 h-12 my-sign-in border-2",
+            "absolute top-3 right-8 mr-2 w-32 h-12 my-sign-in border-2",
             "flex", "items-center", "justify-center",
             "text-blue-400", "font-medium",
             "rounded-full",
@@ -312,7 +312,7 @@ private fun HEADER.YoutubeButton(youtubeLogo: String) {
 }
 
 fun DIV.MenuStaticSidebar() {
-    aside(classes = classes("left-0 min-h-screen fixed w-20 my-sidebar")) {
+    aside(classes = classes("left-0 min-h-screen fixed w-20 my-sidebar z-10")) {
         nav(classes = "pr-4") {
             ul(classes = "space-y-1") {
                 listOf("Home", "Shorts", "Subscriptions", "You").forEach { item ->
@@ -354,7 +354,7 @@ fun DIV.MenuMovingSidebar() {
             "transition-all",
             "duration-300",
             "ease-in-out",
-            "z-10 my-sidebar"
+            "z-20 my-sidebar"
         )
     ) {
         attributes["x-show"] = "sidebarOpen"

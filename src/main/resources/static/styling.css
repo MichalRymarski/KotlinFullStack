@@ -1,8 +1,9 @@
 
 :root {
     --background-color: #1c1b1e;
-    --on-background-color: #222222;
+    --on-background-color: #2f2e2e;
     --text-color: #e8e6e3;
+    --small-text-color:#aaaaaa;
 }
 
 .my-header {
@@ -58,6 +59,17 @@
     font-family: "Roboto Light", sans-serif;
 }
 
+.my-grid-box{
+    font-family: "Roboto Light", sans-serif;
+    font-weight: bold;
+    font-size: medium;
+    color: var(--text-color);
+    height: 19rem;
+}
+
+.my-grid{
+    padding-right: 2.5rem;
+}
 
 .my-interactive {
     color: #3ea6ff;
