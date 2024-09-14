@@ -1,6 +1,6 @@
 
 :root {
-    --background-color: #1c1b1e;
+    --background-color: #0f0f0f;
     --on-background-color: #2f2e2e;
     --text-color: #e8e6e3;
     --small-text-color:#aaaaaa;
@@ -19,7 +19,7 @@
 .my-sign-in {
     border-color: #303030;
     border-style: solid;
-    background-color: #1c1b1e;
+    background-color: var(--background-color);
 }
 
 .my-background{
@@ -35,6 +35,18 @@
     font-family: "Roboto Light", sans-serif;
     font-weight: 600;
     background-color: var(--on-background-color);
+}
+
+.my-video-title{
+    color: var(--text-color);
+    font-family: "Roboto Light", sans-serif;
+    font-weight: 600;
+}
+
+.my-video-details{
+    color: var(--small-text-color);
+    font-family: "Roboto Light", sans-serif;
+    font-weight: 600;
 }
 
 .my-text.chosen-tag {
