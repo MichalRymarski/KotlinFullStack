@@ -59,10 +59,20 @@ private suspend fun PipelineContext<Unit, ApplicationCall>.handleRegister(
     email: String,
     password: String
 ) {
+    if(!emailValid(email)){
+        call.respondText("Invalid email", status = HttpStatusCode.Unauthorized)
+        return
+    }
+
     val success = addUser(email, password)
     if (success) {
-        call.response.headers.append("HX-Redirect", "/")
+        call.response.headers.append("HX-Redirect", "/login")
     } else {
         call.respondText("Email is already in use", status = HttpStatusCode.Unauthorized)
     }
+}
+
+private suspend fun emailValid(email:String): Boolean {
+    val regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex()
+    return email.matches(regex)
 }

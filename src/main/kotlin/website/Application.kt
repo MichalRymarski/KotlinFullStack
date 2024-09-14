@@ -8,6 +8,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import website.back.db.Users
 import website.back.plugins.Cors
 import website.back.plugins.configureRouting
+import website.back.plugins.configureSecurity
 
 fun main(args : Array<String>) {
     KtorClient.init()
@@ -22,6 +23,7 @@ fun main(args : Array<String>) {
 fun Application.module() {
     Cors()
     configureRouting()
+    configureSecurity()
 }
 
 

@@ -1,16 +1,26 @@
 package website.front.components
 
 import kotlinx.html.*
+import website.back.plugins.UserSession
 import website.syntax_extensions.addContent
 import website.syntax_extensions.classes
 
-fun FlowContent.dashboard() = div(classes = classes("relative h-screen overflow-hidden")) {
+fun FlowContent.Home(userSession: UserSession?) = div(classes = classes("relative h-screen overflow-hidden")) {
     attributes["x-data"] = "{ sidebarOpen: false }"
 
-    HeaderNotLoggedIn()
+    if(userSession != null) {
+        HeaderLoggedIn(userSession)
+    } else {
+        HeaderNotLoggedIn()
+    }
     MenuMovingSidebar()
     MenuStaticSidebar()
+    MainContent()
+}
 
+
+
+private fun DIV.MainContent() {
     main(classes("mx-auto overflow-hidden h-full w-full relative flex flex-col")) {
         attributes["x-bind:class"] = "{ 'pl-56': sidebarOpen, 'pl-20': !sidebarOpen }"
 

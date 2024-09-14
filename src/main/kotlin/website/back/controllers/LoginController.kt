@@ -6,11 +6,13 @@ import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.sessions.*
 import io.ktor.util.pipeline.*
 import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
 import website.back.db.getUser
+import website.back.plugins.UserSession
 import website.front.components.login
 import website.front.links.imports
 import website.syntax_extensions.classes
@@ -52,12 +54,17 @@ fun Routing.LoginController() {
         println(email)
         println(password)
 
-
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             call.respondText("Invalid username or password", status = HttpStatusCode.Unauthorized)
         } else {
            handleLogin(email, password)
         }
+    }
+
+    get("/logout") {
+        call.sessions.clear<UserSession>()
+        call.response.headers.append("HX-Redirect", "/")
+        call.respondText("Logged out successfully")
     }
 }
 
@@ -70,6 +77,7 @@ private suspend  fun PipelineContext<Unit, ApplicationCall>.handleLogin(
 
     val success = getUser(email, password)
     if (success) {
+        call.sessions.set(UserSession(email))
         call.response.headers.append("HX-Redirect", "/")
     } else {
         call.respondText("Incorrect email or password", status = HttpStatusCode.Unauthorized)
