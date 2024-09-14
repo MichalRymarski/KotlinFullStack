@@ -20,7 +20,7 @@ fun Routing.HomeController() {
         call.respondHtml(status = HttpStatusCode.OK) {
             imports()
 
-            body(classes = classes()) {
+            body(classes = classes("overflow-hidden")) {
                 id = "home"
                 Home(userSession)
                 script { src = "/static/test.js" }

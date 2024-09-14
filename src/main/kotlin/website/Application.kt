@@ -5,11 +5,11 @@ import io.ktor.server.netty.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import website.back.controllers.configureSessionValidation
 import website.back.db.Users
 import website.back.plugins.Cors
 import website.back.plugins.configureRouting
 import website.back.plugins.configureSecurity
+import website.back.plugins.configureSessionValidation
 
 fun main(args : Array<String>) {
     KtorClient.init()

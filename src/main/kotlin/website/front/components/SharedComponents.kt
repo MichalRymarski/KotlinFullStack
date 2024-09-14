@@ -352,9 +352,10 @@ fun DIV.MenuStaticSidebar() {
             ul(classes = "space-y-1") {
                 listOf("Home", "Shorts", "Subscriptions", "You").forEach { item ->
                     li {
+                        attributes["x-on:click"] = "\$store.nav.setChosen('$item')"
                         a(href = "#", classes = "flex items-center h-16 hover:bg-gray-700 px-4 py-2 rounded-lg") {
                             img(classes = "h-7 w-7 block") {
-                                src = "/static/${item}.svg"
+                                attributes["x-bind:src"] = "\$store.nav.chosen === '$item' ? '/static/${item}_filled.svg' : '/static/${item}.svg'"
                                 alt = "/static/loading.gif"
                             }
                         }
@@ -366,11 +367,10 @@ fun DIV.MenuStaticSidebar() {
 }
 
 fun SPAN.TagItem(tagList: List<String>) {
-    attributes["x-data"] = "{ chosenTag: 'Everything' }"
     for (tag in tagList) {
         span(classes = classes("my-text","block-inline", "rounded-lg", "text-sm", "px-4", "py-2", "cursor-pointer")) {
-            attributes["x-on:click"] = "chosenTag = chosenTag === '$tag' ? null : '$tag'"
-            attributes["x-bind:class"] = "{ 'chosen-tag': chosenTag === '$tag','hover:bg-gray-600': chosenTag !== '$tag'  }"
+            attributes["x-on:click"] = "\$store.tag.setChosen('$tag')"
+            attributes["x-bind:class"] = "{ 'chosen-tag': \$store.tag.chosen === '$tag','hover:bg-gray-600': \$store.tag.chosen !== '$tag'  }"
             addContent(tag)
         }
     }
@@ -398,9 +398,10 @@ fun DIV.MenuMovingSidebar() {
             ul(classes = "space-y-2") {
                 listOf("Home", "Shorts", "Subscriptions").forEach { item ->
                     li {
+                        attributes["x-on:click"] = "\$store.nav.setChosen('$item')"
                         a(href = "#", classes = "flex items-center  hover:bg-gray-700 px-4 py-2 rounded-lg") {
                             img(classes = "h-7 w-7 mr-3") {
-                                src = "/static/${item}.svg"
+                                attributes["x-bind:src"] = "\$store.nav.chosen === '$item' ? '/static/${item}_filled.svg' : '/static/${item}.svg'"
                                 alt = "/static/loading.gif"
                             }
                             addContent(item)

@@ -83,6 +83,10 @@
     padding-right: 2.5rem;
 }
 
+.my-rounded-box{
+    border-radius: 1.25rem
+}
+
 .my-interactive {
     color: #3ea6ff;
 }

@@ -45,3 +45,35 @@ function toggleDropdown() {
         dropdownIcon.textContent = "▼";
     }
 }
+
+
+function getInitialNavItem() {
+    const path = window.location.pathname;
+    if (path.includes('Shorts')) return 'Shorts';
+    if (path.includes('Subscriptions')) return 'Subscriptions';
+    if (path.includes('You')) return 'You';
+    return 'Home'; // default
+}
+document.addEventListener('alpine:init', () => {
+    Alpine.store('nav', {
+        chosen: getInitialNavItem(),
+        setChosen(item) {
+            if(this.chosen === item){
+                return
+            }
+            this.chosen = item;
+        }
+    });
+});
+
+document.addEventListener('alpine:init', () => {
+    Alpine.store('tag', {
+        chosen: 'Everything',
+        setChosen(item) {
+            if(this.chosen === item){
+                return
+            }
+            this.chosen = item;
+        }
+    });
+});

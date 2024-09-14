@@ -7,14 +7,12 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
-import io.ktor.util.date.*
 import io.ktor.util.pipeline.*
 import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
 import website.back.db.getUser
 import website.back.plugins.UserSession
-import website.front.ANSI_GREEN
 import website.front.ANSI_RED
 import website.front.ANSI_RESET
 import website.front.components.Login
@@ -93,30 +91,6 @@ private suspend  fun PipelineContext<Unit, ApplicationCall>.handleLogin(
     }
 }
 
-fun Application.configureSessionValidation() {
-    intercept(ApplicationCallPipeline.Call) {
-        println("${ANSI_RED} INTERCEPTED CALL ${ANSI_RESET}")
-        val userSession = call.sessions.get<UserSession>()
-        if (userSession != null) {
-            val rememberMeCookie = call.request.cookies["REMEMBER_ME"]
-            val isRemembered = rememberMeCookie == "true"
-
-            val sessionDuration = if (isRemembered) 30.days.inWholeMilliseconds else 1.hours.inWholeMilliseconds
-            val sessionExpiration = userSession.creationTime + sessionDuration
-
-            println("$ANSI_GREEN Session duration: ${sessionDuration} $ANSI_RESET")
-            if (System.currentTimeMillis() > sessionExpiration) {
-                call.sessions.clear<UserSession>()
-                call.response.cookies.append(Cookie(
-                    name = "REMEMBER_ME",
-                    value = isRemembered.toString(),
-                    maxAge = sessionExpiration.toInt(),
-                    expires = GMTDate(sessionExpiration)
-                ))
-            }
-        }
-    }
-}
 
 
 
