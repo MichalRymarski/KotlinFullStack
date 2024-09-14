@@ -7,15 +7,21 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
+import io.ktor.util.date.*
 import io.ktor.util.pipeline.*
 import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
 import website.back.db.getUser
 import website.back.plugins.UserSession
-import website.front.components.login
+import website.front.ANSI_GREEN
+import website.front.ANSI_RED
+import website.front.ANSI_RESET
+import website.front.components.Login
 import website.front.links.imports
 import website.syntax_extensions.classes
+import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.hours
 
 fun Routing.LoginController() {
     get("/login") {
@@ -29,17 +35,9 @@ fun Routing.LoginController() {
             id = "home"
             imports()
 
-            body(classes = classes(
-                "bg-gradient-to-br",
-                "from-gray-900",
-                "min-h-screen",
-                "to-gray-500",
-                "flex",
-                "items-center",
-                "justify-center"
-            )) {
-                id = "login"
-                login()
+            body(classes = classes()) {
+                id = "home"
+                Login()
                 script { src = "/static/test.js" }
             }
         }
@@ -49,7 +47,10 @@ fun Routing.LoginController() {
         val parameters = call.receiveParameters()
         val email = parameters["login-email"]
         val password = parameters["login-password"]
+        val rememberMe = parameters["rememberMe"]
+        val rememberUsed = rememberMe == "on"
 
+        println("REMEMBER: ${rememberMe.toString()}")
         println(parameters.toString())
         println(email)
         println(password)
@@ -57,7 +58,7 @@ fun Routing.LoginController() {
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             call.respondText("Invalid username or password", status = HttpStatusCode.Unauthorized)
         } else {
-           handleLogin(email, password)
+           handleLogin(email, password,rememberUsed)
         }
     }
 
@@ -70,17 +71,50 @@ fun Routing.LoginController() {
 
 private suspend  fun PipelineContext<Unit, ApplicationCall>.handleLogin(
     email: String,
-    password: String
+    password: String,
+    rememberUsed: Boolean
 ) {
-    println(email)
-    print(password)
+    println("${ANSI_RED} HANDLE LOGIN ${ANSI_RESET}")
+
 
     val success = getUser(email, password)
     if (success) {
         call.sessions.set(UserSession(email))
+        call.response.cookies.append(Cookie(
+            name ="REMEMBER_ME",
+            value = rememberUsed.toString(),
+            maxAge = if(rememberUsed) 30.days.inWholeMilliseconds.toInt() else 1.hours.inWholeMilliseconds.toInt(),
+            secure = false,
+            httpOnly = true
+        ))
         call.response.headers.append("HX-Redirect", "/")
     } else {
         call.respondText("Incorrect email or password", status = HttpStatusCode.Unauthorized)
+    }
+}
+
+fun Application.configureSessionValidation() {
+    intercept(ApplicationCallPipeline.Call) {
+        println("${ANSI_RED} INTERCEPTED CALL ${ANSI_RESET}")
+        val userSession = call.sessions.get<UserSession>()
+        if (userSession != null) {
+            val rememberMeCookie = call.request.cookies["REMEMBER_ME"]
+            val isRemembered = rememberMeCookie == "true"
+
+            val sessionDuration = if (isRemembered) 30.days.inWholeMilliseconds else 1.hours.inWholeMilliseconds
+            val sessionExpiration = userSession.creationTime + sessionDuration
+
+            println("$ANSI_GREEN Session duration: ${sessionDuration} $ANSI_RESET")
+            if (System.currentTimeMillis() > sessionExpiration) {
+                call.sessions.clear<UserSession>()
+                call.response.cookies.append(Cookie(
+                    name = "REMEMBER_ME",
+                    value = isRemembered.toString(),
+                    maxAge = sessionExpiration.toInt(),
+                    expires = GMTDate(sessionExpiration)
+                ))
+            }
+        }
     }
 }
 

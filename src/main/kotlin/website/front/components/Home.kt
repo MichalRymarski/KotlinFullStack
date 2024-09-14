@@ -5,7 +5,7 @@ import website.back.plugins.UserSession
 import website.syntax_extensions.addContent
 import website.syntax_extensions.classes
 
-fun FlowContent.Home(userSession: UserSession?) = div(classes = classes("relative h-screen overflow-hidden")) {
+fun FlowContent.Home(userSession: UserSession?) = div(classes = classes("relative h-screen overflow-hidden my-background")) {
     attributes["x-data"] = "{ sidebarOpen: false }"
 
     if(userSession != null) {

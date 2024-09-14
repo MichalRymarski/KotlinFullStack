@@ -4,8 +4,8 @@ import kotlinx.html.*
 import website.syntax_extensions.addContent
 import website.syntax_extensions.classes
 
-fun FlowContent.register() {
-    div(classes = classes("w-screen", "h-screen", "flex", "justify-center", "items-center")) {
+fun FlowContent.Register() {
+    div(classes = classes("w-screen", "h-screen", "bg-gradient-to-br", "from-gray-900", "min-h-screen", "to-gray-500", "flex", "justify-center", "flex", "justify-center", "items-center")) {
         form(
             classes = classes(
                 "flex",

@@ -6,6 +6,7 @@ import kotlin.collections.set
 
 data class UserSession(
     val email: String,
+    val creationTime: Long = System.currentTimeMillis(),
     var color : String = ""
 ){
     init {

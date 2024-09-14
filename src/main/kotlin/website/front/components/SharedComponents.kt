@@ -265,13 +265,17 @@ fun DIV.HeaderLoggedIn(userSession: UserSession) {
 
 fun HEADER.ProfilePill(userSession: UserSession) {
     button(classes = classes(
-        "absolute top-3 right-8 w-10 h-10 button my-profile-pill",
+        "absolute top-3 right-8 w-10 h-10 button text-2xl",
         "flex",
         "items-center",
         "justify-center",
         "font-medium",
         "rounded-full",
     )){
+        attributes["hx-get"] = "/logout"
+        attributes["hx-target"] = "#home"
+        attributes["hx-swap"] = "innerHTML"
+        attributes["hx-trigger"] = "click"
         style = "background-color: ${userSession.color}"
         addContent(userSession.getInitial().toString())
     }

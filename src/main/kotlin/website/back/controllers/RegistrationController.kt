@@ -11,9 +11,8 @@ import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
 import website.back.db.addUser
-import website.front.components.register
+import website.front.components.Register
 import website.front.links.imports
-import website.syntax_extensions.classes
 
 fun Routing.RegistrationController() {
     get("/register") {
@@ -21,19 +20,9 @@ fun Routing.RegistrationController() {
             id = "home"
             imports()
 
-            body(
-                classes = classes(
-                    "bg-gradient-to-br",
-                    "from-gray-900",
-                    "min-h-screen",
-                    "to-gray-500",
-                    "flex",
-                    "items-center",
-                    "justify-center"
-                )
-            ) {
-                id = "register"
-                register()
+            body{
+                id = "home"
+                Register()
                 script { src = "/static/test.js" }
             }
         }
