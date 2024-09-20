@@ -13,17 +13,17 @@ import kotlinx.html.script
 import website.back.db.addUser
 import website.front.components.Register
 import website.front.links.imports
+import website.syntax_extensions.classes
 
 fun Routing.RegistrationController() {
     get("/register") {
         call.respondHtml(status = HttpStatusCode.OK) {
-            id = "home"
             imports()
 
-            body{
+            body(classes = classes("overflow-hidden")) {
                 id = "home"
                 Register()
-                script { src = "/static/test.js" }
+                script { src = "/static/global_scripts.js" }
             }
         }
     }

@@ -306,9 +306,11 @@ private fun HEADER.SignInButton(signInIcon: String) {
 
 private fun HEADER.SearchBar() {
     span(classes = classes("absolute mx-auto top-2 left-1/2 transform -translate-x-1/2 h-12 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
+        id = "search-bar"
         attributes["x-data"] = "{ focused: false, search: true, inputValue: '' }"
         attributes["x-show"] = "search"
         attributes["x-bind:style"] = "focused ? 'width: 39%' : 'width: 33%'"
+
 
         div(classes = classes("relative flex items-center w-full h-full")) {
             attributes["x-on:click.away"] = "focused = false"
@@ -346,6 +348,7 @@ private fun HEADER.YoutubeButton(youtubeLogo: String) {
     }
 }
 
+
 fun DIV.MenuStaticSidebar() {
     aside(classes = classes("left-0 min-h-screen fixed w-20 my-sidebar z-10")) {
         nav(classes = "pr-4") {
@@ -368,7 +371,7 @@ fun DIV.MenuStaticSidebar() {
 
 fun SPAN.TagItem(tagList: List<String>) {
     for (tag in tagList) {
-        span(classes = classes("my-text","block-inline", "rounded-lg", "text-sm", "px-4", "py-2", "cursor-pointer")) {
+        span(classes = classes("my-text","my-onBackground","block-inline", "rounded-lg", "text-sm", "px-4", "py-2", "cursor-pointer")) {
             attributes["x-on:click"] = "\$store.tag.setChosen('$tag')"
             attributes["x-bind:class"] = "{ 'chosen-tag': \$store.tag.chosen === '$tag','hover:bg-gray-600': \$store.tag.chosen !== '$tag'  }"
             addContent(tag)

@@ -30,13 +30,12 @@ fun Routing.LoginController() {
     //    call.respondFile(File("D:\\intellij\\PROJEKTY\\KtorWebsite-HTMX-TAILWIND\\src\\main\\kotlin\\tailwind.html"))
         //! THIS FOOKING WORKS !!!
         call.respondHtml(status = HttpStatusCode.OK) {
-            id = "home"
             imports()
 
-            body(classes = classes()) {
+            body(classes = classes("overflow-hidden")) {
                 id = "home"
                 Login()
-                script { src = "/static/test.js" }
+                script { src = "/static/global_scripts.js" }
             }
         }
     }

@@ -21,6 +21,7 @@ const val closeIcon = "https://fonts.googleapis.com/css2?family=Material+Symbols
 // Alpine.js Plugins
 const val AlpineScroll = "https://cdn.jsdelivr.net/npm/@alpinejs/scroll@3.x.x/dist/cdn.min.js"
 const val AlpineFocus = "https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"
+const val AlpineMorph = "https://unpkg.com/htmx.org/dist/ext/alpine-morph.js"
 
 fun HTML.imports() {
     head {
@@ -35,6 +36,9 @@ fun HTML.imports() {
         }
         link(rel = stylesheet, href = googleFont)
 
+        script(src = AlpineMorph){
+            defer = true
+        }
         script(src = HTMX) {}
         script(src = AlpineJS) {
             defer = true

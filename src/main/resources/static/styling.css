@@ -34,7 +34,6 @@
     color: var(--text-color);
     font-family: "Roboto Light", sans-serif;
     font-weight: 600;
-    background-color: var(--on-background-color);
 }
 
 .my-video-title{

@@ -22,8 +22,10 @@ fun Routing.HomeController() {
 
             body(classes = classes("overflow-hidden")) {
                 id = "home"
+                attributes["hx-ext"] = "alpine-morph"
+
                 Home(userSession)
-                script { src = "/static/test.js" }
+                script { src = "/static/global_scripts.js" }
             }
         }
     }

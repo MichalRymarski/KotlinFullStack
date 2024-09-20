@@ -21,7 +21,7 @@ fun Routing.CharactersController() {
                 id = "home"
 
                 charactersGrid()
-                script { src = "/static/test.js" }
+                script { src = "/static/global_scripts.js" }
             }
         }
     }
