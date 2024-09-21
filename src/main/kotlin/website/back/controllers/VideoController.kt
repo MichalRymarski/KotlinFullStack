@@ -4,9 +4,11 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
 import io.ktor.server.routing.*
+import io.ktor.server.sessions.*
 import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
+import website.back.plugins.UserSession
 import website.front.components.video.VideoNotFound
 import website.front.components.video.VideoView
 import website.front.links.imports
@@ -15,6 +17,7 @@ import website.syntax_extensions.classes
 fun Routing.VideoController(){
     get("/video/{id}") {
         val videoID = call.parameters["id"]?.toIntOrNull()
+        val userSession = call.sessions.get<UserSession>()
 
         if(videoID == null){ //TODO : Create a case when db fails to query for that
             call.respondHtml(status = HttpStatusCode.NoContent) {
@@ -30,9 +33,9 @@ fun Routing.VideoController(){
             call.respondHtml(status = HttpStatusCode.OK) {
                 imports()
 
-                body(classes = classes("overflow-hidden ")) {
+                body(classes = classes("overflow-hidden h-full")) {
                     id = "home"
-                    VideoView(videoID)
+                    VideoView(videoID,userSession)
                     script { src = "/static/global_scripts.js" }
                 }
             }

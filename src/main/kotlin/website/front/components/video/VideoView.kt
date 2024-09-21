@@ -1,10 +1,38 @@
 package website.front.components.video
 
 import kotlinx.html.*
+import website.back.plugins.UserSession
+import website.front.components.HeaderLoggedIn
+import website.front.components.HeaderNotLoggedIn
+import website.front.components.MenuMovingSidebar
+import website.syntax_extensions.classes
 
-fun FlowContent.VideoView(id: Int) {
-    div("w-screen h-screen my-background") {
-        div("container mx-auto p-4") {
+fun FlowContent.VideoView(id: Int, userSession: UserSession?) {
+    attributes["x-data"] = "{ sidebarOpen: false }"
+    div("fixed w-screen h-screen inset-0 bg-black bg-opacity-50 z-40 transition-opacity") {
+        attributes["x-on:click"] = "sidebarOpen = false"
+        attributes["x-show"] = "sidebarOpen"
+        attributes["x-transition:enter"] = "ease-out duration-300"
+        attributes["x-transition:enter-start"] = "opacity-0"
+        attributes["x-transition:enter-end"] = "opacity-100"
+        attributes["x-transition:leave"] = "ease-in duration-200"
+        attributes["x-transition:leave-start"] = "opacity-100"
+        attributes["x-transition:leave-end"] = "opacity-0"
+    }
+
+    if(userSession != null) {
+        HeaderLoggedIn(userSession)
+    } else {
+        HeaderNotLoggedIn()
+    }
+    MenuMovingSidebar()
+    PlayerAndSideContent()
+}
+
+private fun FlowContent.PlayerAndSideContent() {
+    div("w-full h-screen overflow-y-auto my-background") {
+
+        div("pl-24 container mx-auto p-4") {
             attributes["x-data"] = "{ cinematicMode: false }"
 
             div("flex flex-col lg:flex-row") {
@@ -32,7 +60,8 @@ fun FlowContent.VideoView(id: Int) {
                         }
 
                         div("absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4") {
-                            attributes["x-bind:class"] = "{ 'opacity-0': !hovered && isPlaying, 'opacity-100': hovered || !isPlaying }"
+                            attributes["x-bind:class"] =
+                                "{ 'opacity-0': !hovered && isPlaying, 'opacity-100': hovered || !isPlaying }"
                             attributes["x-on:mouseover"] = "hovered = true"
                             attributes["x-on:mouseleave"] = "hovered = false"
 
@@ -119,6 +148,7 @@ fun FlowContent.VideoView(id: Int) {
                 }
             }
         }
+        div(classes = classes("h-32"))
     }
 }
 

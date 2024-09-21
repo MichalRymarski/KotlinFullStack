@@ -91,7 +91,7 @@ fun FORM.formButton(content: String, usernameID: String, passwordID: String, lin
     }
 }
 
-fun DIV.LoginButton(classes: String) {
+fun FlowContent.LoginButton(classes: String) {
     button(classes = classes) {
         attributes["hx-get"] = "$API_LINK/login"
         attributes["hx-target"] = "#home"
@@ -102,7 +102,7 @@ fun DIV.LoginButton(classes: String) {
     }
 }
 
-fun DIV.RegisterButton(classes: String) {
+fun FlowContent.RegisterButton(classes: String) {
     button(classes = classes) {
         attributes["hx-get"] = "$API_LINK/register"
         attributes["hx-target"] = "#home"
@@ -113,7 +113,7 @@ fun DIV.RegisterButton(classes: String) {
     }
 }
 
-fun DIV.dropdownMenu(
+fun FlowContent.dropdownMenu(
     containerStyling: String? = null,
     contentStyling: String? = null,
     containerPlacement: String? = null,
@@ -123,7 +123,7 @@ fun DIV.dropdownMenu(
     containerTransition: String? = null,
     contentTransition: String? = null,
     buttonText: String? = null,
-    vararg items: DIV.() -> Unit
+    vararg items: FlowContent.() -> Unit
 ) {
     div(classes = contentClasses(containerStyling, containerPlacement, containerTransition)) {
         div(classes = classes("relative", "inline-block")) {
@@ -206,7 +206,7 @@ fun FlowContent.codeBlock(language: String, code: String) {
     }
 }
 
-fun DIV.ToggleSwitch(id: String, label: String, classes: String? = null) {
+fun FlowContent.ToggleSwitch(id: String, label: String, classes: String? = null) {
     div(classes = classes("flex", "items-center", classes.toString())) {
         attributes["x-data"] = "{ isOn: false }"
 
@@ -241,7 +241,7 @@ fun DIV.ToggleSwitch(id: String, label: String, classes: String? = null) {
     }
 }
 
-fun DIV.HeaderNotLoggedIn() {
+fun FlowContent.HeaderNotLoggedIn() {
     attributes["x-data"] = "{ sidebarOpen: false }"
 
     header(classes = classes("my-header text-white font-bold relative w-full z-10 fixed ")) {
@@ -252,7 +252,7 @@ fun DIV.HeaderNotLoggedIn() {
     }
 }
 
-fun DIV.HeaderLoggedIn(userSession: UserSession) {
+fun FlowContent.HeaderLoggedIn(userSession: UserSession) {
     attributes["x-data"] = "{ sidebarOpen: false }"
 
     header(classes = classes("my-header text-white font-bold relative w-full z-10 fixed ")) {
@@ -306,17 +306,16 @@ private fun HEADER.SignInButton(signInIcon: String) {
 
 private fun HEADER.SearchBar() {
     span(classes = classes("absolute mx-auto top-2 left-1/2 transform -translate-x-1/2 h-12 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
+        style = "width:33%"
         id = "search-bar"
         attributes["x-data"] = "{ focused: false, search: true, inputValue: '' }"
         attributes["x-show"] = "search"
-        attributes["x-bind:style"] = "focused ? 'width: 39%' : 'width: 33%'"
-
 
         div(classes = classes("relative flex items-center w-full h-full")) {
             attributes["x-on:click.away"] = "focused = false"
 
             input(
-                classes = classes("w-11/12 pl-4 h-full pr-2 rounded-l-full rounded-r-0 my-search transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-200"),
+                classes = classes("w-11/12 pl-4 h-full pr-2 rounded-l-full rounded-r-0 my-search transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-200 focus:"),
                 type = InputType.search
             ) {
                 placeholder = "Search"
@@ -341,7 +340,7 @@ private fun HEADER.YoutubeButton(youtubeLogo: String) {
 }
 
 
-fun DIV.MenuStaticSidebar() {
+fun FlowContent.MenuStaticSidebar() {
     aside(classes = classes("left-0 min-h-screen fixed w-20 my-sidebar z-10")) {
         nav(classes = "pr-4") {
             ul(classes = "space-y-1") {
@@ -372,24 +371,40 @@ fun SPAN.TagItem(tagList: List<String>) {
 }
 
 
-fun DIV.MenuMovingSidebar() {
+fun FlowContent.MenuMovingSidebar() {
     aside(
         classes = classes(
             "w-56",
             "fixed",
             "left-0",
-            "top-16",
             "bottom-0",
+            "top-0",
             "overflow-y-auto",
             "transition-all",
             "duration-300",
             "ease-in-out",
-            "z-20 my-sidebar"
+            "z-40 my-sidebar"
         )
     ) {
         attributes["x-show"] = "sidebarOpen"
 
         nav(classes = "pl-0 p-4 my-1") {
+            div(classes = "flex items-center justify-between p-4") {
+                button(
+                    classes = classes("absolute top-6 left-5"), // Changed to match header
+                    type = ButtonType.button
+                ) {
+                    attributes["x-on:click"] = "sidebarOpen = false"
+                    unsafe { addContent(menuIcon) }
+                }
+
+                button(
+                    classes = classes("absolute top-6 left-16 w-32 h-6 flex items-center justify-center"), // Changed to match header
+                    type = ButtonType.button
+                ) {
+                    unsafe { addContent(youtubeLogo) }
+                }
+            }
             ul(classes = "space-y-2") {
                 listOf("Home", "Shorts", "Subscriptions").forEach { item ->
                     li {
@@ -437,7 +452,7 @@ private fun HEADER.MenuButton(menuIcon: String) {
     }
 }
 
-fun DIV.sideBar(
+fun FlowContent.sideBar(
     containerStyling: String? = null,
     contentStyling: String? = null,
     containerPlacement: String? = null,
@@ -446,7 +461,7 @@ fun DIV.sideBar(
     contentSize: String? = null,
     containerTransition: String? = null,
     contentTransition: String? = null,
-    vararg items: DIV.() -> Unit
+    vararg items: FlowContent.() -> Unit
 ) {
     attributes["x-data"] = "{ open: false }"
 
