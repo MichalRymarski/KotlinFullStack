@@ -315,19 +315,11 @@ private fun HEADER.SearchBar() {
         div(classes = classes("relative flex items-center w-full h-full")) {
             attributes["x-on:click.away"] = "focused = false"
 
-            i(classes = classes("material-symbols-outlined absolute left-3 transition-opacity duration-300 ease-in-out")) {
-                attributes["x-show"] = "focused"
-                attributes["x-bind:class"] = "focused ? 'opacity-100' : 'opacity-0'"
-                addContent("search")
-            }
-
             input(
-                classes = classes("w-11/12 h-full pr-2 rounded-l-full rounded-r-0 my-search transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-200"),
+                classes = classes("w-11/12 pl-4 h-full pr-2 rounded-l-full rounded-r-0 my-search transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-200"),
                 type = InputType.search
             ) {
                 placeholder = "Search"
-                attributes["x-on:focus"] = "focused = true"
-                attributes["x-bind:class"] = "focused ? 'pl-10' : 'pl-4 '"
             }
 
             button(classes = "absolute w-1/12 right-0 h-full px-4 rounded-r-full my-searchButton my-onBackground flex justify-center items-center") {

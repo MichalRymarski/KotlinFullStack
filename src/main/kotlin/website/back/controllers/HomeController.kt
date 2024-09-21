@@ -20,7 +20,7 @@ fun Routing.HomeController() {
         call.respondHtml(status = HttpStatusCode.OK) {
             imports()
 
-            body(classes = classes("overflow-hidden")) {
+            body(classes = classes("overflow-hidden ")) {
                 id = "home"
                 attributes["hx-ext"] = "alpine-morph"
 

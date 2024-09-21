@@ -65,6 +65,8 @@ document.addEventListener('alpine:init', () => {
                 this.$refs.video.play();
             }
             this.isPlaying = !this.isPlaying;
+
+            console.log(this.isPlaying);
         },
         changeVolume() {
             this.$refs.video.volume = this.volume;

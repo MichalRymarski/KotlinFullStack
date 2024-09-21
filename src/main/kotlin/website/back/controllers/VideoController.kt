@@ -30,7 +30,7 @@ fun Routing.VideoController(){
             call.respondHtml(status = HttpStatusCode.OK) {
                 imports()
 
-                body(classes = classes("overflow-hidden my-background ")) {
+                body(classes = classes("overflow-hidden ")) {
                     id = "home"
                     VideoView(videoID)
                     script { src = "/static/global_scripts.js" }
