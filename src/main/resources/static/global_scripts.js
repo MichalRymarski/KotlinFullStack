@@ -46,8 +46,6 @@ document.addEventListener('alpine:init', () => {
         }
     });
 });
-
-
 document.addEventListener('alpine:init', () => {
     Alpine.data('videoPlayer', () => ({
         isPlaying: false,

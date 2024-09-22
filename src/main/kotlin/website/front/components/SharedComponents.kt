@@ -34,7 +34,7 @@ const val youtubeLogo = """<svg xmlns="http://www.w3.org/2000/svg" id="yt-logo-u
             </svg>
         </svg>"""
 
-fun FORM.formInput(
+fun FlowContent.formInput(
     inputType: InputType,
     inputPlaceholder: String,
     inputRequired: Boolean,
@@ -62,7 +62,7 @@ fun FORM.formInput(
     }
 }
 
-fun FORM.formButton(content: String, usernameID: String, passwordID: String, link: String) {
+fun FlowContent.formButton(content: String, usernameID: String, passwordID: String, link: String) {
     button(
         classes = classes(
             "w-full",
@@ -245,8 +245,8 @@ fun FlowContent.HeaderNotLoggedIn() {
     attributes["x-data"] = "{ sidebarOpen: false }"
 
     header(classes = classes("my-header text-white font-bold relative w-full z-10 fixed ")) {
-        MenuButton(menuIcon)
-        YoutubeButton(youtubeLogo)
+        MenuButton()
+        YoutubeButton()
         SearchBar()
         SignInButton(signInIcon)
     }
@@ -256,14 +256,14 @@ fun FlowContent.HeaderLoggedIn(userSession: UserSession) {
     attributes["x-data"] = "{ sidebarOpen: false }"
 
     header(classes = classes("my-header text-white font-bold relative w-full z-10 fixed ")) {
-        MenuButton(menuIcon)
-        YoutubeButton(youtubeLogo)
+        MenuButton()
+        YoutubeButton()
         SearchBar()
         ProfilePill(userSession)
     }
 }
 
-fun HEADER.ProfilePill(userSession: UserSession) {
+fun FlowContent.ProfilePill(userSession: UserSession) {
     button(classes = classes(
         "absolute top-3 right-8 w-10 h-10 button text-2xl",
         "flex",
@@ -281,7 +281,7 @@ fun HEADER.ProfilePill(userSession: UserSession) {
     }
 }
 
-private fun HEADER.SignInButton(signInIcon: String) {
+private fun FlowContent.SignInButton(signInIcon: String) {
     button(
         classes = classes(
             "absolute top-3 right-8 mr-2 w-32 h-12 my-sign-in border-2",
@@ -304,7 +304,7 @@ private fun HEADER.SignInButton(signInIcon: String) {
     }
 }
 
-private fun HEADER.SearchBar() {
+private fun FlowContent.SearchBar() {
     span(classes = classes("absolute mx-auto top-2 left-1/2 transform -translate-x-1/2 h-12 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
         style = "width:33%"
         id = "search-bar"
@@ -330,11 +330,17 @@ private fun HEADER.SearchBar() {
     }
 }
 
-private fun HEADER.YoutubeButton(youtubeLogo: String) {
+private fun FlowContent.YoutubeButton() {
     button(
         classes = classes("absolute top-6 left-16 w-32 h-6  flex items-center justify-center"),
         type = ButtonType.button
     ) {
+        attributes["hx-trigger"] = "click"
+        attributes["hx-target"] = "#home"
+        attributes["hx-swap"] = "innerHTML"
+        attributes["hx-push-url"] = "true"
+        attributes["hx-get"] = "/"
+
         unsafe { addContent(youtubeLogo) }
     }
 }
@@ -390,20 +396,8 @@ fun FlowContent.MenuMovingSidebar() {
 
         nav(classes = "pl-0 p-4 my-1") {
             div(classes = "flex items-center justify-between p-4") {
-                button(
-                    classes = classes("absolute top-6 left-5"), // Changed to match header
-                    type = ButtonType.button
-                ) {
-                    attributes["x-on:click"] = "sidebarOpen = false"
-                    unsafe { addContent(menuIcon) }
-                }
-
-                button(
-                    classes = classes("absolute top-6 left-16 w-32 h-6 flex items-center justify-center"), // Changed to match header
-                    type = ButtonType.button
-                ) {
-                    unsafe { addContent(youtubeLogo) }
-                }
+               MenuButton()
+                YoutubeButton()
             }
             ul(classes = "space-y-2") {
                 listOf("Home", "Shorts", "Subscriptions").forEach { item ->
@@ -444,7 +438,7 @@ fun FlowContent.MenuMovingSidebar() {
     }
 }
 
-private fun HEADER.MenuButton(menuIcon: String) {
+private fun FlowContent.MenuButton() {
     button(classes = classes("absolute top-6 left-5"), type = ButtonType.button, name = "menu") {
         attributes["title"] = "Menu"
         attributes["x-on:click"] = "sidebarOpen = !sidebarOpen"

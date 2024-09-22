@@ -7,28 +7,29 @@ import website.front.components.HeaderNotLoggedIn
 import website.front.components.MenuMovingSidebar
 import website.syntax_extensions.classes
 
-fun FlowContent.VideoView(id: Int, userSession: UserSession?) {
-    attributes["x-data"] = "{ sidebarOpen: false }"
+fun FlowContent.VideoView(videoID: Int, userSession: UserSession?) {
+    div{
+        attributes["x-data"] = "{ sidebarOpen: false }"
+        attributes["hx-preserve"] = "true"
+        div("fixed w-screen h-screen inset-0 bg-black bg-opacity-50 z-40 transition-opacity") {
+            attributes["x-on:click"] = "sidebarOpen = false"
+            attributes["x-show"] = "sidebarOpen"
+            attributes["x-transition:enter"] = "ease-out duration-300"
+            attributes["x-transition:enter-start"] = "opacity-0"
+            attributes["x-transition:enter-end"] = "opacity-100"
+            attributes["x-transition:leave"] = "ease-in duration-200"
+            attributes["x-transition:leave-start"] = "opacity-100"
+            attributes["x-transition:leave-end"] = "opacity-0"
+        }
 
-    div("fixed w-screen h-screen inset-0 bg-black bg-opacity-50 z-40 transition-opacity") {
-        attributes["x-on:click"] = "sidebarOpen = false"
-        attributes["x-show"] = "sidebarOpen"
-        attributes["x-transition:enter"] = "ease-out duration-300"
-        attributes["x-transition:enter-start"] = "opacity-0"
-        attributes["x-transition:enter-end"] = "opacity-100"
-        attributes["x-transition:leave"] = "ease-in duration-200"
-        attributes["x-transition:leave-start"] = "opacity-100"
-        attributes["x-transition:leave-end"] = "opacity-0"
-    }
-
-    if(userSession != null) {
-        HeaderLoggedIn(userSession)
-    } else {
-        HeaderNotLoggedIn()
-    }
-    MenuMovingSidebar()
-    PlayerAndSideContent()
-}
+        if (userSession != null) {
+            HeaderLoggedIn(userSession)
+        } else {
+            HeaderNotLoggedIn()
+        }
+        MenuMovingSidebar()
+        PlayerAndSideContent()
+    }}
 
 private fun FlowContent.PlayerAndSideContent() {
     div("w-full h-screen overflow-y-auto my-background relative") {
