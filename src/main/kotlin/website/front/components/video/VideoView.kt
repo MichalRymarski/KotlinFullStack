@@ -31,8 +31,9 @@ fun FlowContent.VideoView(id: Int, userSession: UserSession?) {
 
 private fun FlowContent.PlayerAndSideContent() {
     div("w-full h-screen overflow-y-auto my-background relative") {
-        div("container right-8 absolute p-4") {
-            attributes["x-data"] = "{ cinematicMode: false }"
+        attributes["x-data"] = "{ cinematicMode: false }"
+        div("container  p-4") {
+            attributes["x-bind:class"] = "{ 'right-8 absolute': !cinematicMode, 'mx-auto': cinematicMode }"
 
             div("flex flex-col lg:flex-row") {
                 attributes["x-bind:class"] = "{ 'lg:flex-col': cinematicMode }"
@@ -44,7 +45,7 @@ private fun FlowContent.PlayerAndSideContent() {
                     div("relative") {
                         attributes["x-data"] = "videoPlayer"
 
-                        video(classes = "w-full aspect-video bg-black rounded-full cursor-pointer") {
+                        video(classes = "w-full aspect-video bg-black rounded-lg cursor-pointer") {
                             attributes["x-ref"] = "video"
                             attributes["x-on:click"] = "togglePlay"
                             attributes["x-on:timeupdate"] = "updateProgress"
@@ -139,6 +140,9 @@ private fun FlowContent.PlayerAndSideContent() {
                             }
                         }
                     }
+                }
+                div("h-16"){
+                    attributes["x-show"] = "cinematicMode"
                 }
 
                 div("w-full lg:w-1/3 mt-4 lg:mt-0 lg:pl-4") {
