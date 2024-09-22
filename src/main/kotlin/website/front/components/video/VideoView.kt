@@ -9,6 +9,7 @@ import website.syntax_extensions.classes
 
 fun FlowContent.VideoView(id: Int, userSession: UserSession?) {
     attributes["x-data"] = "{ sidebarOpen: false }"
+
     div("fixed w-screen h-screen inset-0 bg-black bg-opacity-50 z-40 transition-opacity") {
         attributes["x-on:click"] = "sidebarOpen = false"
         attributes["x-show"] = "sidebarOpen"
@@ -44,12 +45,14 @@ private fun FlowContent.PlayerAndSideContent() {
 
                     div("relative") {
                         attributes["x-data"] = "videoPlayer"
+                        attributes["x-bind:class"] = "{ 'fixed inset-0 z-50 bg-black flex flex-col': isFullscreen }"
 
-                        video(classes = "w-full aspect-video bg-black rounded-lg cursor-pointer") {
+                        video(classes = "w-full h-full object-contain ") {
                             attributes["x-ref"] = "video"
                             attributes["x-on:click"] = "togglePlay"
                             attributes["x-on:timeupdate"] = "updateProgress"
                             attributes["x-on:loadedmetadata"] = "initializeVideo"
+                            attributes["controlslist"]="nodownload nofullscreen noremoteplayback"
 
                             source {
                                 src =
@@ -59,11 +62,12 @@ private fun FlowContent.PlayerAndSideContent() {
                             +"Your browser does not support the video tag."
                         }
 
-                        div("absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4") {
-                            attributes["x-bind:class"] =
-                                "{ 'opacity-0': !hovered && isPlaying, 'opacity-100': hovered || !isPlaying }"
+                        div("absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 z-10") {
+                            attributes["x-bind:class"] = "{ 'opacity-0': !hovered && isPlaying, 'opacity-100': hovered || !isPlaying }"
+                            attributes["x-on:style"] = "isFullscreen ? 'position: static; margin-top: auto;' : ''"
                             attributes["x-on:mouseover"] = "hovered = true"
                             attributes["x-on:mouseleave"] = "hovered = false"
+
 
                             div("flex items-center justify-between text-white") {
                                 div("flex items-center space-x-4") {

@@ -54,6 +54,7 @@ document.addEventListener('alpine:init', () => {
         volume: 1,
         progress: 0,
         duration: 0,
+        isFullscreen: false,  // Add this line
         initializeVideo() {
             this.$refs.video.volume = this.volume;
             this.duration = this.$refs.video.duration;
@@ -85,10 +86,11 @@ document.addEventListener('alpine:init', () => {
         },
         toggleFullscreen() {
             if (!document.fullscreenElement) {
-                this.$refs.video.requestFullscreen();
+                this.$refs.video.parentElement.requestFullscreen();
             } else {
                 document.exitFullscreen();
             }
+            this.isFullscreen = !this.isFullscreen;
         }
     }));
 });
