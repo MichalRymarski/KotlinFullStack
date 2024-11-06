@@ -32,7 +32,7 @@ fun Application.configureSecurity() {
             cookie.path = "/"
             cookie.maxAgeInSeconds = 3600 // 1 hour
             cookie.extensions["SameSite"] = "lax"
-            cookie.secure = false // Use this if your site is served over HTTPS
+            cookie.secure = false
         }
     }
 }

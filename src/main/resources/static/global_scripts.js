@@ -71,7 +71,12 @@ document.addEventListener('alpine:init', () => {
             this.$refs.video.volume = this.volume;
         },
         updateProgress() {
-            this.progress = (this.$refs.video.currentTime / this.duration) * 100;
+            let currentTime = this.$refs.video.currentTime;
+            let duration = this.duration;
+            this.progress = (currentTime / duration) * 100;
+            console.log("Progress at: "+ this.progress);
+            console.log("Current time is : " + currentTime);
+            console.log("Duration is : " + duration);
         },
         skip(seconds) {
             this.$refs.video.currentTime += seconds;

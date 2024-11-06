@@ -1,5 +1,6 @@
 package website
 
+import com.google.cloud.storage.StorageOptions
 import io.ktor.server.application.*
 import io.ktor.server.netty.*
 import org.jetbrains.exposed.sql.Database
@@ -17,11 +18,12 @@ fun main(args : Array<String>) {
 
     EngineMain.main(args)
 }
-//  ./gradlew run -t
-// ./gradlew installDist -t
+//  ./gradlew run -t RUN THIS IN SECOND TERMINAL
+// ./gradlew installDist -t RUN THIS IN FIRST TERMINAL
 
 @Suppress("unused")
 fun Application.module() {
+    setupGoogleCloudStorage()
     Cors()
     configureRouting()
     configureSecurity()
@@ -40,4 +42,13 @@ fun setupDb(){
         SchemaUtils.create(Users)
     }
 }
+
+fun Application.setupGoogleCloudStorage(){
+    val projectId = "youtubeclone-436411"
+    val bucket = "clone_video"
+    val storage = StorageOptions.newBuilder().setProjectId(projectId).build().service
+
+}
+
+
 

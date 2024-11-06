@@ -6,6 +6,7 @@ val postgres_version: String by project
 
 
 plugins {
+    application
     kotlin("jvm") version "2.0.10"
     id("io.ktor.plugin") version "2.3.12"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.10"
@@ -30,6 +31,7 @@ tasks.named("processResources") {
 }
 
 repositories {
+    google()
     mavenCentral()
 }
 
@@ -64,4 +66,12 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposed_version")
     implementation("org.postgresql:postgresql:$postgres_version")
 
+    //google cloud
+    implementation("com.google.cloud:google-cloud-storage:2.10.0")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("com.google.guava:guava:31.1-jre")
+    }
 }

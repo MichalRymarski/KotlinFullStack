@@ -2,15 +2,16 @@ package website.front.components.video
 
 import kotlinx.html.*
 import website.back.plugins.UserSession
-import website.front.components.HeaderLoggedIn
-import website.front.components.HeaderNotLoggedIn
-import website.front.components.MenuMovingSidebar
+import website.front.components.shared.HeaderLoggedIn
+import website.front.components.shared.HeaderNotLoggedIn
+import website.front.components.shared.MenuMovingSidebar
 import website.syntax_extensions.classes
 
 fun FlowContent.VideoView(videoID: Int, userSession: UserSession?) {
     div{
         attributes["x-data"] = "{ sidebarOpen: false }"
         attributes["hx-preserve"] = "true"
+
         div("fixed w-screen h-screen inset-0 bg-black bg-opacity-50 z-40 transition-opacity") {
             attributes["x-on:click"] = "sidebarOpen = false"
             attributes["x-show"] = "sidebarOpen"
@@ -49,15 +50,17 @@ private fun FlowContent.PlayerAndSideContent() {
                         attributes["x-bind:class"] = "{ 'fixed inset-0 z-50 bg-black flex flex-col': isFullscreen }"
 
                         video(classes = "w-full h-full object-contain ") {
+                            id = "video-player"
                             attributes["x-ref"] = "video"
                             attributes["x-on:click"] = "togglePlay"
                             attributes["x-on:timeupdate"] = "updateProgress"
                             attributes["x-on:loadedmetadata"] = "initializeVideo"
+                            attributes["preload"] = "auto"
                             attributes["controlslist"]="nodownload nofullscreen noremoteplayback"
 
                             source {
                                 src =
-                                    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                                    "https://storage.googleapis.com/clone_video/file_example_MP4_480_1_5MG.mp4"
                                 type = "video/mp4"
                             }
                             +"Your browser does not support the video tag."

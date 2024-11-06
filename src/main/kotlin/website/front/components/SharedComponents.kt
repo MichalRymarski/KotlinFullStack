@@ -3,7 +3,6 @@
 package website.front.components
 
 import kotlinx.html.*
-import website.back.plugins.UserSession
 import website.front.Colors
 import website.front.links.API_LINK
 import website.syntax_extensions.addContent
@@ -113,81 +112,6 @@ fun FlowContent.RegisterButton(classes: String) {
     }
 }
 
-fun FlowContent.dropdownMenu(
-    containerStyling: String? = null,
-    contentStyling: String? = null,
-    containerPlacement: String? = null,
-    contentPlacement: String? = null,
-    containerSize: String? = null,
-    contentSize: String? = null,
-    containerTransition: String? = null,
-    contentTransition: String? = null,
-    buttonText: String? = null,
-    vararg items: FlowContent.() -> Unit
-) {
-    div(classes = contentClasses(containerStyling, containerPlacement, containerTransition)) {
-        div(classes = classes("relative", "inline-block")) {
-            attributes["x-data"] = "{ isOpen: false }"
-            button(
-                classes = classes(
-                    containerSize,
-                    "py-2",
-                    "inline-flex",
-                    "items-center",
-                    "justify-center"
-                )
-            ) {
-                attributes["x-on:click"] = "isOpen = !isOpen"
-                addContent(buttonText ?: "")
-                i(classes("ml-1")) {
-                    attributes["x-bind:class"] = "isOpen ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"
-                }
-            }
-            div(
-                classes = classes(
-                    "absolute",
-                    contentStyling,
-                    "mt-2",
-                    "py-2",
-                    "w-48",
-                    "shadow-lg",
-                    "z-10",
-                    "center",
-                    "rounded-md",
-                    "border",
-                    "border-gray-200",
-                    "transition-all",
-                    "transform",
-                    "scale-95",
-                    "origin-top-right",
-                    "right-0",
-                    "mt-2"
-                )
-            ) {
-                attributes["x-show"] = "isOpen"
-                attributes["x-transition:enter"] = "transition ease-out duration-150"
-                attributes["x-transition:enter-start"] = "opacity-0"
-                attributes["x-transition:enter-end"] = "opacity-100"
-                attributes["x-transition:leave"] = "transition ease-in duration-150"
-                attributes["x-transition:leave-start"] = "opacity-100"
-                attributes["x-transition:leave-end"] = "opacity-0"
-                id = "dropdownContent"
-                items.forEachIndexed { index, item ->
-                    div(
-                        classes = contentClasses(
-                            contentPlacement,
-                            contentTransition,
-                            contentSize,
-                            if (index != items.size - 1) "border-b border-gray-600" else "" // Add border between items except for the last one
-                        )
-                    ) {
-                        item()
-                    }
-                }
-            }
-        }
-    }
-}
 
 fun FlowContent.codeBlock(language: String, code: String) {
     pre(
@@ -241,47 +165,10 @@ fun FlowContent.ToggleSwitch(id: String, label: String, classes: String? = null)
     }
 }
 
-fun FlowContent.HeaderNotLoggedIn() {
-    attributes["x-data"] = "{ sidebarOpen: false }"
 
-    header(classes = classes("my-header text-white font-bold relative w-full z-10 fixed ")) {
-        MenuButton()
-        YoutubeButton()
-        SearchBar()
-        SignInButton(signInIcon)
-    }
-}
 
-fun FlowContent.HeaderLoggedIn(userSession: UserSession) {
-    attributes["x-data"] = "{ sidebarOpen: false }"
 
-    header(classes = classes("my-header text-white font-bold relative w-full z-10 fixed ")) {
-        MenuButton()
-        YoutubeButton()
-        SearchBar()
-        ProfilePill(userSession)
-    }
-}
-
-fun FlowContent.ProfilePill(userSession: UserSession) {
-    button(classes = classes(
-        "absolute top-3 right-8 w-10 h-10 button text-2xl",
-        "flex",
-        "items-center",
-        "justify-center",
-        "font-medium",
-        "rounded-full",
-    )){
-        attributes["hx-get"] = "/logout"
-        attributes["hx-target"] = "#home"
-        attributes["hx-swap"] = "innerHTML"
-        attributes["hx-trigger"] = "click"
-        style = "background-color: ${userSession.color}"
-        addContent(userSession.getInitial().toString())
-    }
-}
-
-private fun FlowContent.SignInButton(signInIcon: String) {
+ fun FlowContent.SignInButton(signInIcon: String) {
     button(
         classes = classes(
             "absolute top-3 right-8 mr-2 w-32 h-12 my-sign-in border-2",
@@ -304,67 +191,7 @@ private fun FlowContent.SignInButton(signInIcon: String) {
     }
 }
 
-private fun FlowContent.SearchBar() {
-    span(classes = classes("absolute mx-auto top-2 left-1/2 transform -translate-x-1/2 h-12 rounded-full my-onBackground transition-all duration-300 ease-in-out")) {
-        style = "width:33%"
-        id = "search-bar"
-        attributes["x-data"] = "{ focused: false, search: true, inputValue: '' }"
-        attributes["x-show"] = "search"
 
-        div(classes = classes("relative flex items-center w-full h-full")) {
-            attributes["x-on:click.away"] = "focused = false"
-
-            input(
-                classes = classes("w-11/12 pl-4 h-full pr-2 rounded-l-full rounded-r-0 my-search transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-200 focus:"),
-                type = InputType.search
-            ) {
-                placeholder = "Search"
-            }
-
-            button(classes = "absolute w-1/12 right-0 h-full px-4 rounded-r-full my-searchButton my-onBackground flex justify-center items-center") {
-                i(classes = "material-symbols-outlined") {
-                    addContent("search")
-                }
-            }
-        }
-    }
-}
-
-private fun FlowContent.YoutubeButton() {
-    button(
-        classes = classes("absolute top-6 left-16 w-32 h-6  flex items-center justify-center"),
-        type = ButtonType.button
-    ) {
-        attributes["hx-trigger"] = "click"
-        attributes["hx-target"] = "#home"
-        attributes["hx-swap"] = "innerHTML"
-        attributes["hx-push-url"] = "true"
-        attributes["hx-get"] = "/"
-
-        unsafe { addContent(youtubeLogo) }
-    }
-}
-
-
-fun FlowContent.MenuStaticSidebar() {
-    aside(classes = classes("left-0 min-h-screen fixed w-20 my-sidebar z-10")) {
-        nav(classes = "pr-4") {
-            ul(classes = "space-y-1") {
-                listOf("Home", "Shorts", "Subscriptions", "You").forEach { item ->
-                    li {
-                        attributes["x-on:click"] = "\$store.nav.setChosen('$item')"
-                        a(href = "#", classes = "flex items-center h-16 hover:bg-gray-700 px-4 py-2 rounded-lg") {
-                            img(classes = "h-7 w-7 block") {
-                                attributes["x-bind:src"] = "\$store.nav.chosen === '$item' ? '/static/${item}_filled.svg' : '/static/${item}.svg'"
-                                alt = "/static/loading.gif"
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 
 fun SPAN.TagItem(tagList: List<String>) {
     for (tag in tagList) {
@@ -377,68 +204,7 @@ fun SPAN.TagItem(tagList: List<String>) {
 }
 
 
-fun FlowContent.MenuMovingSidebar() {
-    aside(
-        classes = classes(
-            "w-56",
-            "fixed",
-            "left-0",
-            "bottom-0",
-            "top-0",
-            "overflow-y-auto",
-            "transition-all",
-            "duration-300",
-            "ease-in-out",
-            "z-40 my-sidebar"
-        )
-    ) {
-        attributes["x-show"] = "sidebarOpen"
-
-        nav(classes = "pl-0 p-4 my-1") {
-            div(classes = "flex items-center justify-between p-4") {
-               MenuButton()
-                YoutubeButton()
-            }
-            ul(classes = "space-y-2") {
-                listOf("Home", "Shorts", "Subscriptions").forEach { item ->
-                    li {
-                        attributes["x-on:click"] = "\$store.nav.setChosen('$item')"
-                        a(href = "#", classes = "flex items-center  hover:bg-gray-700 px-4 py-2 rounded-lg") {
-                            img(classes = "h-7 w-7 mr-3") {
-                                attributes["x-bind:src"] = "\$store.nav.chosen === '$item' ? '/static/${item}_filled.svg' : '/static/${item}.svg'"
-                                alt = "/static/loading.gif"
-                            }
-                            addContent(item)
-                        }
-                    }
-                }
-            }
-
-            hr(classes = "my-4")
-
-            h3(classes = "text-sm font-semibold  uppercase tracking-wider mb-2 ml-4") {
-                +"Subscriptions"
-            }
-
-            ul(classes = "space-y-2") {
-                listOf("Channel 1", "Channel 2", "Channel 3").forEachIndexed { index, channel ->
-                    li {
-                        a(href = "#", classes = "flex items-center hover:bg-gray-700 px-4 py-2 rounded-lg") {
-                            img(
-                                src = "https://placekitten.com/${24 + index}/${24 + index}",
-                                alt = channel,
-                                classes = "h-6 w-6 pl-1 rounded-full mr-3"
-                            )
-                            addContent(channel)
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-private fun FlowContent.MenuButton() {
+fun FlowContent.MenuButton() {
     button(classes = classes("absolute top-6 left-5"), type = ButtonType.button, name = "menu") {
         attributes["title"] = "Menu"
         attributes["x-on:click"] = "sidebarOpen = !sidebarOpen"

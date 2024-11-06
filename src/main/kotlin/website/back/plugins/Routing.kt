@@ -28,8 +28,9 @@ fun Application.configureRouting() {
         RegistrationController()
         LoginController()
         HomeController()
-        CharactersController()
         VideoController()
+        ProfileController()
+        ChannelController()
     }
 }
 

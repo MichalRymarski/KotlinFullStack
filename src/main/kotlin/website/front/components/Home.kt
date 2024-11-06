@@ -2,6 +2,10 @@ package website.front.components
 
 import kotlinx.html.*
 import website.back.plugins.UserSession
+import website.front.components.shared.HeaderLoggedIn
+import website.front.components.shared.HeaderNotLoggedIn
+import website.front.components.shared.MenuMovingSidebar
+import website.front.components.shared.MenuStaticSidebar
 import website.front.components.video.VideoThumbnail
 import website.syntax_extensions.classes
 

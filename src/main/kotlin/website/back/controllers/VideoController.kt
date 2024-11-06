@@ -15,6 +15,7 @@ import website.front.links.imports
 import website.syntax_extensions.classes
 
 fun Routing.VideoController(){
+
     get("/video/{id}") {
         val videoID = call.parameters["id"]?.toIntOrNull()
         val userSession = call.sessions.get<UserSession>()

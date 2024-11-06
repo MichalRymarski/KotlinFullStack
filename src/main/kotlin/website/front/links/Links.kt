@@ -46,9 +46,6 @@ fun HTML.imports() {
 
         // Include Alpine.js plugins
 
-        script(src = AlpineScroll) {
-            defer = true
-        }
         script(src = AlpineFocus) {
             defer = true
         }
