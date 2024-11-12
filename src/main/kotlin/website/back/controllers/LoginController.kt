@@ -11,7 +11,7 @@ import io.ktor.util.pipeline.*
 import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
-import website.back.db.getUser
+import website.back.db.getUserNickname
 import website.back.plugins.UserSession
 import website.front.ANSI_RED
 import website.front.ANSI_RESET
@@ -27,7 +27,7 @@ fun Routing.LoginController() {
             println("Header: $key = ${values.joinToString()}")
         }
 
-    //    call.respondFile(File("D:\\intellij\\PROJEKTY\\KtorWebsite-HTMX-TAILWIND\\src\\main\\kotlin\\tailwind.html"))
+        //    call.respondFile(File("D:\\intellij\\PROJEKTY\\KtorWebsite-HTMX-TAILWIND\\src\\main\\kotlin\\tailwind.html"))
         //! THIS FOOKING WORKS !!!
         call.respondHtml(status = HttpStatusCode.OK) {
             imports()
@@ -55,7 +55,7 @@ fun Routing.LoginController() {
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             call.respondText("Invalid username or password", status = HttpStatusCode.Unauthorized)
         } else {
-           handleLogin(email, password,rememberUsed)
+            handleLogin( email, password, rememberUsed)
         }
     }
 
@@ -66,24 +66,28 @@ fun Routing.LoginController() {
     }
 }
 
-private suspend  fun PipelineContext<Unit, ApplicationCall>.handleLogin(
+private suspend fun PipelineContext<Unit, ApplicationCall>.handleLogin(
     email: String,
     password: String,
     rememberUsed: Boolean
 ) {
-    println("${ANSI_RED} HANDLE LOGIN ${ANSI_RESET}")
+    println("$ANSI_RED HANDLE LOGIN $ANSI_RESET")
 
+    val nick = getUserNickname(email, password)
+    val success = nick != null
 
-    val success = getUser(email, password)
     if (success) {
-        call.sessions.set(UserSession(email))
-        call.response.cookies.append(Cookie(
-            name ="REMEMBER_ME",
-            value = rememberUsed.toString(),
-            maxAge = if(rememberUsed) 30.days.inWholeMilliseconds.toInt() else 1.hours.inWholeMilliseconds.toInt(),
-            secure = false,
-            httpOnly = true
-        ))
+        call.sessions.set(UserSession(nick!!, email))
+        call.response.cookies.append(
+            Cookie(
+                name = "REMEMBER_ME",
+                value = rememberUsed.toString(),
+                maxAge = if (rememberUsed) 30.days.inWholeMilliseconds.toInt() else 1.hours.inWholeMilliseconds.toInt(),
+                secure = false,
+                httpOnly = true
+            )
+        )
+
         call.response.headers.append("HX-Redirect", "/")
     } else {
         call.respondText("Incorrect email or password", status = HttpStatusCode.Unauthorized)

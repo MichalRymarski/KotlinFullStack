@@ -5,11 +5,14 @@ import io.ktor.server.sessions.*
 import kotlin.collections.set
 
 data class UserSession(
+    var nick: String,
     val email: String,
     val creationTime: Long = System.currentTimeMillis(),
+    var profilePictureUrl : String = "",
     var color : String = ""
 ){
     init {
+        profilePictureUrl = if (nick == "Bazinga") "https://fastly.picsum.photos/id/511/200/300.jpg?hmac=3pjxomHmNfWivxE47hYNY3VdnJTTJtcRJmQ3ihqJcBA" else ""
         color = generateColorFromEmail(email)
     }
 

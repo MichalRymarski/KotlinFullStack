@@ -27,8 +27,8 @@ fun FlowContent.Register() {
                     addContent("Register")
                 }
             }
-            formInput(InputType.text, "Username", true, "register-email")
-
+            formInput(InputType.text, "Email", true, "register-email")
+            formInput(InputType.text, "Nickname", true, "register-nick")
             formInput(InputType.text, "Password", true, "register-password")
 
             formButton(
