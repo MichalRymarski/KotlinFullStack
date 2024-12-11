@@ -14,7 +14,7 @@ import website.back.plugins.configureSessionValidation
 
 fun main(args : Array<String>) {
     KtorClient.init()
-    setupDb()
+   // setupDb()
     //migrateUsers()
 
     EngineMain.main(args)

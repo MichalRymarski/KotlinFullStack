@@ -23,7 +23,7 @@ application {
 }
 
 tasks.register<Exec>("buildFrontend") {
-    commandLine("npm.cmd", "run", "build:css")
+    commandLine("npm", "run", "build:css")
 }
 
 tasks.named("processResources") {
