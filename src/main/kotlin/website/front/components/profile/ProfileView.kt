@@ -84,10 +84,6 @@ fun FlowContent.ProfileView(userSession: UserSession) {
 
                                 addContent("Save Changes")
                             }
-                            a(classes = "bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline") {
-                                href = "/channel"
-                                addContent("Go to My Channel")
-                            }
                         }
                     }
                 }

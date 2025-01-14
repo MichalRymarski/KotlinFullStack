@@ -1,6 +1,5 @@
 version: '3.1'
 
-
 services:
   db:
     container_name: kotlin-fullstack-postgres

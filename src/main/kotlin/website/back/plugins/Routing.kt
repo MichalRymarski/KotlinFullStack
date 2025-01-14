@@ -8,10 +8,11 @@ import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import kotlinx.html.body
 import kotlinx.html.h1
+import website.GoogleCloudStorageService
 import website.back.controllers.*
 
 
-fun Application.configureRouting() {
+fun Application.configureRouting(storageService: GoogleCloudStorageService) {
     routing {
         staticResources("/static", "static")
 
@@ -29,8 +30,8 @@ fun Application.configureRouting() {
         LoginController()
         HomeController()
         VideoController()
-        ProfileController()
-        ChannelController()
+        ProfileController(storageService)
+        ChannelController(storageService)
     }
 }
 

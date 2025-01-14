@@ -8,13 +8,14 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
 import kotlinx.html.*
+import website.GoogleCloudStorageService
 import website.back.db.changeUserNick
 import website.back.plugins.UserSession
 import website.front.components.profile.ProfileView
 import website.front.links.imports
 import website.syntax_extensions.classes
 
-fun Routing.ProfileController() {
+fun Routing.ProfileController(storageService: GoogleCloudStorageService) {
 
     get("/profile") {
         val profileEmail = call.request.queryParameters["email"]

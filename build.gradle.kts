@@ -68,6 +68,8 @@ dependencies {
 
     //google cloud
     implementation("com.google.cloud:google-cloud-storage:2.10.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+
 }
 
 configurations.all {
@@ -75,3 +77,4 @@ configurations.all {
         force("com.google.guava:guava:31.1-jre")
     }
 }
+
