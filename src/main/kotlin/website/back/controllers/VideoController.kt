@@ -8,6 +8,8 @@ import io.ktor.server.sessions.*
 import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
+import website.back.db.getRandom20Videos
+import website.back.db.getVideoById
 import website.back.plugins.UserSession
 import website.front.components.video.VideoNotFound
 import website.front.components.video.VideoView
@@ -19,6 +21,7 @@ fun Routing.VideoController(){
     get("/video/{id}") {
         val videoID = call.parameters["id"]?.toIntOrNull()
         val userSession = call.sessions.get<UserSession>()
+        val videos = getRandom20Videos()
 
         if(videoID == null){ //TODO : Create a case when db fails to query for that
             call.respondHtml(status = HttpStatusCode.NoContent) {
@@ -32,11 +35,11 @@ fun Routing.VideoController(){
             }
         }else {
             call.respondHtml(status = HttpStatusCode.OK) {
+                val currentVideo = getVideoById(videoID)
                 imports()
-
                 body(classes = classes("overflow-hidden h-full")) {
                     id = "home"
-                    VideoView(videoID,userSession)
+                    VideoView(videos,userSession, currentVideo)
                     script { src = "/static/global_scripts.js" }
                 }
             }

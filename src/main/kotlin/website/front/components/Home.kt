@@ -1,6 +1,7 @@
 package website.front.components
 
 import kotlinx.html.*
+import website.VideoObject
 import website.back.plugins.UserSession
 import website.front.components.shared.HeaderLoggedIn
 import website.front.components.shared.HeaderNotLoggedIn
@@ -9,7 +10,7 @@ import website.front.components.shared.MenuStaticSidebar
 import website.front.components.video.VideoThumbnail
 import website.syntax_extensions.classes
 
-fun FlowContent.Home(userSession: UserSession?) = div(classes = classes("relative h-screen my-background")) {
+fun FlowContent.Home(userSession: UserSession?, videos : List<VideoObject>) = div(classes = classes("relative h-screen my-background")) {
     attributes["x-data"] = "{ sidebarOpen: false }"
 
     if(userSession != null) {
@@ -19,10 +20,10 @@ fun FlowContent.Home(userSession: UserSession?) = div(classes = classes("relativ
     }
     MenuMovingSidebar()
     MenuStaticSidebar()
-    VideoGrid()
+    VideoGrid(videos)
 }
 
-private fun DIV.VideoGrid() {
+private fun DIV.VideoGrid(videos : List<VideoObject>) {
     main(classes("mx-auto overflow-hidden h-full w-full relative flex flex-col")) {
         attributes["x-bind:class"] = "{ 'pl-56': sidebarOpen, 'pl-20': !sidebarOpen }"
 
@@ -33,9 +34,9 @@ private fun DIV.VideoGrid() {
 
         div(classes = classes("overflow-y-auto h-full pt-10 pr-8 scrollbar-hide")) {
             div(classes = classes("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-8 gap-x-6")) {
-                for (i in 0..15) {
-                    VideoThumbnail(i)
-                }
+               videos.forEach {
+                   VideoThumbnail(it)
+               }
             }
         }
 

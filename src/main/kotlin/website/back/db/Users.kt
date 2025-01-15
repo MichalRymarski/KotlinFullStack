@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 
-const val MAX_VARCHAR_LENGTH = 255
+private const val MAX_VARCHAR_LENGTH = 255
 
 object Users : Table("users") {
     val nick = varchar(name = "nick", length = MAX_VARCHAR_LENGTH)

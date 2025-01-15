@@ -11,18 +11,20 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import website.back.db.Users
+import website.back.db.Videos
+import website.back.db.migrateUsers
+import website.back.db.migrateVideos
 import website.back.plugins.Cors
 import website.back.plugins.configureRouting
 import website.back.plugins.configureSecurity
 import website.back.plugins.configureSessionValidation
-import website.front.ANSI_RED
-import website.front.ANSI_RESET
 import java.util.*
 
 fun main(args : Array<String>) {
     KtorClient.init()
     setupDb()
-    //migrateUsers()
+    migrateUsers()
+    migrateVideos()
 
     EngineMain.main(args)
 }
@@ -32,8 +34,7 @@ fun main(args : Array<String>) {
 @Suppress("unused")
 fun Application.module() {
     val storageService = GoogleCloudStorageService()
-    println("$ANSI_RED ${storageService.listVideos()} $ANSI_RESET")
-    setupGoogleCloudStorage()
+  //  setupGoogleCloudStorage()
     Cors()
     configureRouting(storageService)
     configureSecurity()
@@ -60,7 +61,7 @@ class GoogleCloudStorageService(
     }
 
 
-    suspend fun uploadVideo(part: PartData.FileItem): String {
+     fun uploadVideo(part: PartData.FileItem): String {
         val fileName = generateUniqueFileName(part.originalFileName ?: "video")
         val blobId = BlobId.of(bucketName, "videos/$fileName")
         val blobInfo = BlobInfo.newBuilder(blobId)
@@ -74,7 +75,21 @@ class GoogleCloudStorageService(
         return "https://storage.googleapis.com/$bucketName/videos/$fileName"
     }
 
-    fun getVideoUrl(fileName: String): String {
+    fun uploadImage(part : PartData.FileItem) : String{
+        val fileName = generateUniqueFileName(part.originalFileName ?: "image")
+        val blobId = BlobId.of(bucketName, "images/$fileName")
+        val blobInfo = BlobInfo.newBuilder(blobId)
+            .setContentType(part.contentType?.toString())
+            .build()
+
+        part.streamProvider().use { inputStream ->
+            storage.create(blobInfo, inputStream.readBytes())
+        }
+
+        return "https://storage.googleapis.com/$bucketName/images/$fileName"
+    }
+
+    fun getUrl(fileName: String): String {
         return "https://storage.googleapis.com/$bucketName/${fileName}"
     }
 
@@ -83,7 +98,7 @@ class GoogleCloudStorageService(
         return storage.list(bucketName, Storage.BlobListOption.prefix("videos/"))
             .iterateAll()
             .filter { blob -> !blob.name.endsWith("/") }
-            .map { blob -> getVideoUrl(blob.name) }
+            .map { blob -> getUrl(blob.name) }
     }
 
     private fun generateUniqueFileName(originalFileName: String): String {
@@ -91,6 +106,14 @@ class GoogleCloudStorageService(
         return "${UUID.randomUUID()}.${extension}"
     }
 }
+
+data class VideoObject(
+    val id : String,
+    val ownerEmail : String,
+    val title: String,
+    val videoUrl: String,
+    val thumbnailUrl: String
+)
 
 
 fun setupDb(){
@@ -102,6 +125,7 @@ fun setupDb(){
     )
     transaction {
         SchemaUtils.create(Users)
+        SchemaUtils.create(Videos)
     }
 }
 

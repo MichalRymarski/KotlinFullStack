@@ -8,6 +8,7 @@ import io.ktor.server.sessions.*
 import kotlinx.html.body
 import kotlinx.html.id
 import kotlinx.html.script
+import website.back.db.getRandom30Videos
 import website.back.plugins.UserSession
 import website.front.components.Home
 import website.front.links.imports
@@ -16,6 +17,7 @@ import website.syntax_extensions.classes
 fun Routing.HomeController() {
     get("/") {
         val userSession = call.sessions.get<UserSession>()
+        val videos = getRandom30Videos()
 
         call.respondHtml(status = HttpStatusCode.OK) {
             imports()
@@ -24,7 +26,7 @@ fun Routing.HomeController() {
                 id = "home"
                 attributes["hx-ext"] = "alpine-morph"
 
-                Home(userSession)
+                Home(userSession, videos)
                 script { src = "/static/global_scripts.js" }
             }
         }

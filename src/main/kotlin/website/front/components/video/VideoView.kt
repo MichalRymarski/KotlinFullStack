@@ -1,13 +1,14 @@
 package website.front.components.video
 
 import kotlinx.html.*
+import website.VideoObject
 import website.back.plugins.UserSession
 import website.front.components.shared.HeaderLoggedIn
 import website.front.components.shared.HeaderNotLoggedIn
 import website.front.components.shared.MenuMovingSidebar
 import website.syntax_extensions.classes
 
-fun FlowContent.VideoView(videoID: Int, userSession: UserSession?) {
+fun FlowContent.VideoView(videos: List<VideoObject>, userSession: UserSession?, currentVideo: VideoObject) {
     div{
         attributes["x-data"] = "{ sidebarOpen: false }"
         attributes["hx-preserve"] = "true"
@@ -29,14 +30,14 @@ fun FlowContent.VideoView(videoID: Int, userSession: UserSession?) {
             HeaderNotLoggedIn()
         }
         MenuMovingSidebar()
-        PlayerAndSideContent()
+        PlayerAndSideContent(videos,currentVideo)
     }}
 
-private fun FlowContent.PlayerAndSideContent() {
+private fun FlowContent.PlayerAndSideContent(videos: List<VideoObject>, currentVideo: VideoObject) {
     div("w-full h-screen overflow-y-auto my-background relative") {
         attributes["x-data"] = "{ cinematicMode: false }"
         div("container  p-4") {
-            attributes["x-bind:class"] = "{ 'right-8 absolute': !cinematicMode, 'mx-auto': cinematicMode }"
+            attributes["x-bind:class"] = "{ 'left-32 absolute': !cinematicMode, 'mx-auto': cinematicMode }"
 
             div("flex flex-col lg:flex-row") {
                 attributes["x-bind:class"] = "{ 'lg:flex-col': cinematicMode }"
@@ -59,8 +60,7 @@ private fun FlowContent.PlayerAndSideContent() {
                             attributes["controlslist"]="nodownload nofullscreen noremoteplayback"
 
                             source {
-                                src =
-                                    "https://storage.googleapis.com/clone_video/file_example_MP4_480_1_5MG.mp4"
+                                src = currentVideo.videoUrl
                                 type = "video/mp4"
                             }
                             +"Your browser does not support the video tag."
@@ -157,7 +157,9 @@ private fun FlowContent.PlayerAndSideContent() {
                     attributes["x-bind:class"] = "{ 'lg:w-full lg:pl-0': cinematicMode, 'lg:max-w-sm': !cinematicMode }"
                     div("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4") {
                         attributes["x-bind:class"] = "{ 'xl:grid-cols-3': cinematicMode }"
-                        repeat(5) { VideoThumbnail(it) }
+                        videos.forEach {
+                            VideoThumbnail(it)
+                        }
                     }
                 }
             }
