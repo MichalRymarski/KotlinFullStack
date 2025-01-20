@@ -2,10 +2,13 @@ package website.front.components.video
 
 import kotlinx.html.*
 import website.VideoObject
+import website.back.controllers.generateColorFromEmail
 import website.back.plugins.UserSession
+import website.front.components.shared.ChannelPill
 import website.front.components.shared.HeaderLoggedIn
 import website.front.components.shared.HeaderNotLoggedIn
 import website.front.components.shared.MenuMovingSidebar
+import website.syntax_extensions.addContent
 import website.syntax_extensions.classes
 
 fun FlowContent.VideoView(videos: List<VideoObject>, userSession: UserSession?, currentVideo: VideoObject) {
@@ -151,6 +154,12 @@ private fun FlowContent.PlayerAndSideContent(videos: List<VideoObject>, currentV
                 }
                 div("h-16"){
                     attributes["x-show"] = "cinematicMode"
+                }
+                div (classes = classes()){
+                    ChannelPill(generateColorFromEmail(currentVideo.ownerEmail), currentVideo.ownerEmail.take(1))
+                    div(classes = classes("text-white text-xl")) {
+                        addContent(currentVideo.title)
+                    }
                 }
 
                 div("w-full lg:w-1/3 mt-4 lg:mt-0 lg:pl-4") {

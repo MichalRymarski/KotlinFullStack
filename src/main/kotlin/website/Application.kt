@@ -22,6 +22,7 @@ import java.util.*
 
 fun main(args : Array<String>) {
     KtorClient.init()
+
     setupDb()
     migrateUsers()
     migrateVideos()
@@ -34,7 +35,7 @@ fun main(args : Array<String>) {
 @Suppress("unused")
 fun Application.module() {
     val storageService = GoogleCloudStorageService()
-  //  setupGoogleCloudStorage()
+    setupGoogleCloudStorage()
     Cors()
     configureRouting(storageService)
     configureSecurity()

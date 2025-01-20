@@ -24,15 +24,10 @@ fun FlowContent.DropdownMenu(
         div(classes = classes("relative", "inline-block")) {
             button(
                 classes = classes(
-                    containerSize,
-                    "py-2",
-                    "inline-flex",
-                    "items-center",
-                    "justify-center"
+                    containerSize, "py-2", "inline-flex", "items-center", "justify-center"
                 )
             ) {
                 attributes["x-on:click"] = "isOpen = !isOpen"
-
             }
             div(
                 classes = classes(

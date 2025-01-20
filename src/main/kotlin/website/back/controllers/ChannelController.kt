@@ -11,10 +11,18 @@ import io.ktor.server.sessions.*
 import kotlinx.html.*
 import website.GoogleCloudStorageService
 import website.VideoObject
+import website.back.db.getUserNicknameByEmail
 import website.back.db.getVideosForUser
 import website.back.db.handleVideoSave
 import website.back.plugins.UserSession
+import website.front.ANSI_GREEN
+import website.front.ANSI_RESET
+import website.front.components.VideoGrid
+import website.front.components.shared.ChannelPill
+import website.front.components.shared.HeaderLoggedIn
+import website.front.components.shared.HeaderNotLoggedIn
 import website.front.links.imports
+import website.syntax_extensions.classes
 
 
 fun Routing.ChannelController(storageService: GoogleCloudStorageService) {
@@ -27,50 +35,33 @@ fun Routing.ChannelController(storageService: GoogleCloudStorageService) {
             null -> {
                 call.respondHtml(status = HttpStatusCode.NotFound) {
                     imports()
-                    body {
+                    body(classes = classes("overflow-hidden ")) {
+                        id = "home"
                         h5 { +"Channel doesn't exist!" }
                     }
                 }
             }
 
             userSession?.email -> {
+                val profileNick = getUserNicknameByEmail(profileEmail)
+
                 call.respondHtml(status = HttpStatusCode.OK) {
                     imports()
-                    body {
-                        // Channel owner header
-                        ChannelView(profileEmail, videos)
+                    body(classes = classes("overflow-hidden ")) {
+                        id = "home"
+                        ChannelView(profileNick, profileEmail, videos, userSession)
                     }
                 }
             }
 
             else -> {
                 call.respondHtml(status = HttpStatusCode.OK) {
-                    imports()
-                    body {
-                        // Channel header for visitors
-                        div {
-                            classes = setOf("mb-8")
-                            h5 { +"Channel" }
-                            p { +profileEmail }
-                        }
+                    val profileNick = getUserNicknameByEmail(profileEmail)
 
-                        // Video list - view only
-                        div {
-                            classes = setOf("grid", "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3", "gap-4")
-                            videos.forEach { video ->
-                                div {
-                                    classes = setOf("p-4", "border", "rounded")
-                                    video {
-                                        classes = setOf("w-full")
-                                        controls = true
-                                        source {
-                                            src = video.videoUrl
-                                            type = "video/mp4"
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    imports()
+                    body(classes = classes("overflow-hidden ")) {
+                        id = "home"
+                        ChannelView(profileNick, profileEmail, videos, userSession)
                     }
                 }
             }
@@ -83,12 +74,14 @@ fun Routing.ChannelController(storageService: GoogleCloudStorageService) {
             call.respond(HttpStatusCode.Unauthorized)
             return@post
         }
-        val userEmail  = userSession.email
+        val userEmail = userSession.email
 
         val multipart = call.receiveMultipart()
         var videoUrl: String? = null
         var thumbnailUrl: String? = null
         var videoTitle: String? = null
+
+        println("${ANSI_GREEN}Uploading video for user $userEmail$ANSI_RESET")
 
         multipart.forEachPart { part ->
             when (part) {
@@ -109,7 +102,6 @@ fun Routing.ChannelController(storageService: GoogleCloudStorageService) {
             }
             part.dispose()
         }
-        // Return the updated video list
 
         if (videoTitle.isNullOrBlank() || videoUrl == null || thumbnailUrl == null) {
             call.respond(HttpStatusCode.BadRequest, "Missing required fields")
@@ -131,94 +123,93 @@ fun Routing.ChannelController(storageService: GoogleCloudStorageService) {
     }
 }
 
+
 private fun FlowContent.RenderVideoList(videos: List<VideoObject>) {
-    div {
-        id = "videoList"
-        classes = setOf("grid", "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3", "gap-4")
-        videos.forEach { video ->
+    VideoGrid(videos)
+}
+
+private fun FlowContent.ChannelView(channelNick: String, channelEmail: String, videos: List<VideoObject>, userSession: UserSession?) {
+    div(classes = classes("relative h-screen bg-customBlack overflow-y-auto")) {
+        attributes["x-data"] = "{ sidebarOpen: false }"
+
+        if (userSession == null) {
+            HeaderNotLoggedIn()
+        } else {
+            HeaderLoggedIn(userSession)
+        }
+
+        div(classes = classes("flex flex-col px-8 pb-8")) {
+            if (userSession?.email == channelEmail) {
+                div(classes = classes("pl-20")) {
+                    div(classes = classes("w-1/3 p-3  bg-customGray shadow-md rounded-lg mb-4")) {
+                        h3(classes = classes("text-sm font-bold mb-2 text-white")) { +"Add a New Video" }
+                        form {
+                            attributes["hx-post"] = "/upload"
+                            attributes["hx-encoding"] = "multipart/form-data"
+                            attributes["hx-target"] = "#videoGrid"
+                            attributes["hx-swap"] = "outerHTML"
+
+                            div {
+                                classes = setOf("mb-2")
+                                input(type = InputType.text) {
+                                    id = "video-title"
+                                    name = "title"
+                                    placeholder = "Enter a title for the video"
+                                    classes = setOf("block", "w-full", "text-xs", "border", "rounded", "mb-2", "bg-customGray", "text-white", "p-1")
+                                }
+
+                                input(type = InputType.file) {
+                                    id = "video-upload"
+                                    name = "video"
+                                    accept = "video/*"
+                                    classes = setOf(
+                                        "block",
+                                        "w-full",
+                                        "text-xs",
+                                        "border",
+                                        "rounded",
+                                        "mb-2",
+                                        "text-white",
+                                        "file:bg-customGray",
+                                        "file:text-white"
+                                    )
+                                }
+
+                                input(type = InputType.file) {
+                                    id = "thumbnail-upload"
+                                    name = "image"
+                                    accept = "image/*"
+                                    classes =
+                                        setOf("block", "w-full", "text-xs", "border", "rounded", "text-white", "file:bg-customGray", "file:text-white")
+                                }
+                            }
+
+                            button(type = ButtonType.submit) {
+                                classes = setOf("bg-blue-500", "text-white", "px-3", "py-1", "rounded", "text-sm", "hover:bg-blue-600", "mt-2")
+                                +"Upload"
+                            }
+                        }
+                    }
+                }
+            }
             div {
-                classes = setOf("p-4", "border-4", "rounded") // Thicker border here
-                a(href = "/video/${video.id}") { // Create a link for the video
-                    img {
-                        src = video.thumbnailUrl
-                        classes = setOf("w-full", "h-32", "object-cover", "mb-2") // Smaller thumbnails (height reduced to 32)
+                div(classes = classes("flex items-center pl-20 gap-4 my-6")) {
+                    ChannelPill(generateColorFromEmail(channelEmail), channelNick.take(1))
+                    div(classes = classes("text-white text-xl")) {
+                        +channelNick
                     }
-                    h4 {
-                        classes = setOf("text-center", "text-lg", "font-semibold", "mt-2")
-                        +video.title.orEmpty() // Use an empty string if the title is null
-                    }
+                }
+                div {
+                    id = "videoGrid"
+                    RenderVideoList(videos)
                 }
             }
         }
     }
 }
 
-private fun FlowContent.ChannelView(profileEmail: String, videos: List<VideoObject>) {
-    div {
-        classes = setOf("mb-8")
-        h5 { +"Your Channel" }
-        p { +profileEmail }
-    }
-
-    // Upload form - only visible to the channel owner
-    div {
-        classes = setOf("mb-8", "p-6", "border", "rounded-lg", "bg-gray-50")
-        h3 {
-            classes = setOf("text-lg", "font-semibold", "mb-4")
-            +"Upload a New Video"
-        }
-        form {
-            attributes["hx-post"] = "/upload"
-            attributes["hx-encoding"] = "multipart/form-data"
-            attributes["hx-target"] = "#videoList"
-
-            div {
-                classes = setOf("mb-4")
-                label {
-                    classes = setOf("block", "mb-2", "text-sm", "font-medium")
-                    htmlFor = "video-title"
-                    +"Video Title"
-                }
-                input(type = InputType.text) {
-                    id = "video-title"
-                    name = "title"
-                    placeholder = "Enter a title for the video"
-                    classes = setOf("block", "w-full", "text-sm", "border", "rounded", "mb-4")
-                }
-
-                label {
-                    classes = setOf("block", "mb-2", "text-sm", "font-medium")
-                    htmlFor = "video-upload"
-                    +"Choose video file"
-                }
-                input(type = InputType.file) {
-                    id = "video-upload"
-                    name = "video"
-                    accept = "video/*"
-                    classes = setOf("block", "w-full", "text-sm", "border", "rounded", "mb-4")
-                }
-
-                label {
-                    classes = setOf("block", "mb-2", "text-sm", "font-medium")
-                    htmlFor = "thumbnail-upload"
-                    +"Choose thumbnail image"
-                }
-                input(type = InputType.file) {
-                    id = "thumbnail-upload"
-                    name = "image"
-                    accept = "image/*"
-                    classes = setOf("block", "w-full", "text-sm", "border", "rounded")
-                }
-            }
-
-            button(type = ButtonType.submit) {
-                classes = setOf("bg-blue-500", "text-white", "px-4", "py-2", "rounded")
-                +"Upload"
-            }
-        }
-    }
-
-    // Render video list
-    RenderVideoList(videos) // Reusing the new method here
+fun generateColorFromEmail(email: String): String {
+    val hash = email.hashCode()
+    val color = "#" + Integer.toHexString(hash).takeLast(6)
+    return color
 }
-

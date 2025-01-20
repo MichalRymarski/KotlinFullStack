@@ -2,7 +2,6 @@ package website.front.components.shared
 
 import kotlinx.html.*
 import website.back.plugins.UserSession
-import website.front.components.MenuButton
 import website.syntax_extensions.*
 
 fun FlowContent.HeaderLoggedIn(userSession: UserSession) {
@@ -10,7 +9,6 @@ fun FlowContent.HeaderLoggedIn(userSession: UserSession) {
 
     header(classes = classes("my-header text-white font-bold relative w-full z-10 fixed ")) {
         attributes["x-data"] = "{ isOpen: false }"
-        MenuButton()
         YoutubeButton()
         SearchBar()
         ProfilePill(userSession)

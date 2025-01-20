@@ -21,6 +21,7 @@ fun FlowContent.VideoThumbnail(video: VideoObject) {
                 attributes["hx-push-url"] = "true"
                 attributes["hx-swap"] = "innerHTML"
                 attributes["hx-trigger"] = "click"
+                attributes["hx-vals"] = """{"isOpen": false}"""
 
                 img(classes = "w-full h-full object-cover") {
                     src = video.thumbnailUrl

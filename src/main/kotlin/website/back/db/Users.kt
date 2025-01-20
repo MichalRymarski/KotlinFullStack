@@ -38,6 +38,15 @@ fun addUser(usersNick: String, usersEmail: String, usersPassword: String): Boole
     return true //Email doesn't exist
 }
 
+fun getUserNicknameByEmail(usersEmail: String): String {
+    val user = transaction {
+        val query = Users.selectAll().where(Users.email eq usersEmail)
+        query.singleOrNull()
+    }
+
+    return user?.get(Users.nick).toString()
+}
+
 fun getUserNickname(usersEmail: String, usersPassword: String): String?{
     val user = transaction {
         val query = Users.selectAll().where(
